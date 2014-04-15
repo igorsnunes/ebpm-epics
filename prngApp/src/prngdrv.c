@@ -1,3 +1,41 @@
+/****************************************************************************
+ * Copyright (C) 2014 by Igor Nunes, Bruno Martins, Lucas Russo,            *
+ * Daniel Tavares                                                           *
+ *                                                                          *
+ *                                                                          *
+ * This file is part of BPM epics.                                          *
+ *                                                                          *
+ *   BPM epics is free software: you can redistribute it and/or modify it   *
+ *   under the terms of the GNU Lesser General Public License as published  *
+ *   by the Free Software Foundation, either version 3 of the License, or   *
+ *   (at your option) any later version.                                    *
+ *                                                                          *
+ *   Box is distributed in the hope that it will be useful,                 *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of         *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the          *
+ *   GNU Lesser General Public License for more details.                    *
+ *                                                                          *
+ *   You should have received a copy of the GNU Lesser General Public       *
+ *   License along with Box.  If not, see <http://www.gnu.org/licenses/>.   *
+ ****************************************************************************/
+
+/**
+ * @file prngdrv.c
+ * @author Igor Nunes
+ * @date 14 Mar 2014
+ * @brief Driver support for BPM. Controls hardware parameters using ZeroMQ
+ *
+ * This Driver Support provides access to hardware using an API for accessing
+ * and modifing its parameters and acquiring data. The API is build over ZeroMq.
+ *
+ * 
+ * @see http://www.stack.nl/~dimitri/doxygen/docblocks.html
+ * @see http://www.stack.nl/~dimitri/doxygen/commands.html
+ */
+
+//#ifndef _BPM_PROTOTYPES_DOXYGEN_H
+//#  define _BPM_PROTOTYPES_DOXYGEN_H
+
 #include <stdlib.h>
 #include <stddef.h>
 #include <string.h>
@@ -23,15 +61,20 @@
 #include <mdp.h>
 #include <inttypes.h>
 
+/**
+ * @brief BPM Driver private struct.
+ *
+ * Detailed explanation.
+ */
 typedef struct {
-	bpm_client_t *bpm_client; 
-	asynInterface common;
-	asynInterface int32;
-	asynInterface float64;
-	asynInterface int32Array;
-	asynInterface drvUser;
-	char *portNumber;
-	char *bpm_param;
+	bpm_client_t *bpm_client; /**< Instance of bpm client to use the API. */
+	asynInterface common;/**< asyn common interface**/
+	asynInterface int32;/**< asyn int32 interface**/
+	asynInterface float64;/**asyn float64 interface**/
+	asynInterface int32Array;/**asyn int32array interface**/
+	asynInterface drvUser;/**asyn drvUser interface**/
+	char *portNumber;/**portNumber, or bpm Number for acess**/
+	char *bpm_param;/**ipc directory**/
 } bpmDrvPvt;
 
 /* These functions are in public interfaces */
@@ -61,6 +104,16 @@ static asynInt32 bpmDrvInt32 = {
     NULL
 };
 
+/**
+ *@brief Function for initial configuration of Driver Support called by st.cmd
+ *
+ *This function exports standard interfaces for use in device support, register a port
+ * for communicating with hardware and setting some basic hardware configuration.
+ *For each interface, some functions are defined for: connecting/disconecting driver support,
+ *reading/writting values from lower layers.
+ *
+ *@param [in] *portNumber BPM id/port number for hardware access 
+ */ 
 int bpmConfig(const char *portNumber)
 {
 
@@ -117,7 +170,6 @@ static void bpmReport(void *drvPvt, FILE *fp, int details)
 {
     bpmDrvPvt *pPvt = (bpmDrvPvt *)drvPvt;
 
-    //assert(pPvt);
     fprintf(fp, "bpm %s: connected on drv device \n",
             pPvt->portNumber);
     if (details >= 1) {
@@ -133,8 +185,6 @@ static asynStatus bpmConnect(void *drvPvt, asynUser *pasynUser)
 	if(pPvt->bpm_client == NULL)
 		pPvt->client = bpm_client_new(pPvt->bpm_param,verbose);
 	
-	/* Does nothing for now.  
-	* May be used if connection management is implemented */
 	pasynManager->exceptionConnect(pasynUser);
 	return(asynSuccess);
 }
@@ -144,8 +194,6 @@ static asynStatus bpmDisconnect(void *drvPvt, asynUser *pasynUser)
 {
 	bpmDrvPvt *pPvt = (bpmDrvPvt*)drvPvt;
 	bpm_client_destroy(pPvt->bpm_client);
-	/* Does nothing for now.  
-	* May be used if connection management is implemented */
 	pasynManager->exceptionDisconnect(pasynUser);
 	return(asynSuccess);
 }
