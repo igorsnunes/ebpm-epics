@@ -1,4 +1,4 @@
 include "base.dbd"
 include "asyn.dbd"
-device(ai,INST_IO,devAiPrng,"Random")
-registrar(prngRegister)
+device(ai,INST_IO,devAibpm,"Random")
+registrar(bpmRegister)

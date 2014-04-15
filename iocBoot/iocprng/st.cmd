@@ -13,7 +13,7 @@ prng_registerRecordDeviceDriver pdbbase
 
 ## Load record instances
 dbLoadRecords("db/prng.db","P=port1")
-prngConfig("port1",1234)
+bpmConfig("0")
 
 cd ${TOP}/iocBoot/${IOC}
 iocInit

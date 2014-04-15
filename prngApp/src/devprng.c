@@ -39,7 +39,7 @@ typedef struct {
     void *asynInt32Pvt;
     size_t nread;
     int *data;
-} prngPvt;
+} bpmPvt;
 
 
 
@@ -51,7 +51,7 @@ struct {
   DEVSUPFUN  get_ioint_info;
   DEVSUPFUN  read_ai;
   DEVSUPFUN  special_linconv;
-} devAiPrng = {
+} devAibpm = {
   6, /* space for 6 functions */
   NULL,
   NULL,
@@ -60,7 +60,7 @@ struct {
   read_ai,
   NULL
 };
-epicsExportAddress(dset,devAiPrng);
+epicsExportAddress(dset,devAibpm);
 
 static long init_record(aiRecord *pao)
 {
@@ -69,10 +69,10 @@ static long init_record(aiRecord *pao)
     char *port, *userParam;
     asynStatus status;
     asynInterface *pasynInterface;
-    prngPvt *pPvt;
+    bpmPvt *pPvt;
     int addr;
 
-    pPvt = callocMustSucceed(1, sizeof(prngPvt), "devMcaAsyn init_record()");
+    pPvt = callocMustSucceed(1, sizeof(bpmPvt), "devMcaAsyn init_record()");
     /* Create asynUser */
     pasynUser = pasynManager->createAsynUser(0, 0);
     pasynUser->userPvt = pPvt;
@@ -110,8 +110,8 @@ static long init_record(aiRecord *pao)
 }
 static long read_ai(aiRecord *pao)
 {
-	prngPvt *pPvt = (prngPvt *)pao->dpvt;
-	pPvt = (prngPvt *)pPvt->pasynUser->userPvt;
+	bpmPvt *pPvt = (bpmPvt *)pao->dpvt;
+	pPvt = (bpmPvt *)pPvt->pasynUser->userPvt;
 	pPvt->pasynInt32->read(pPvt->asynInt32Pvt, pPvt->pasynUser,&pao->rval);
 	return 0;
 }
