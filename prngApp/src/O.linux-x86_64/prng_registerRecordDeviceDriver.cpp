@@ -143,7 +143,6 @@ epicsShareExtern dset *pvar_dset_asynAiInt32;
 epicsShareExtern dset *pvar_dset_asynAiInt32Average;
 epicsShareExtern dset *pvar_dset_asynAiFloat64;
 epicsShareExtern dset *pvar_dset_asynAiFloat64Average;
-epicsShareExtern dset *pvar_dset_devAibpm;
 epicsShareExtern dset *pvar_dset_devAoSoft;
 epicsShareExtern dset *pvar_dset_devAoSoftRaw;
 epicsShareExtern dset *pvar_dset_devAoSoftCallback;
@@ -159,6 +158,7 @@ epicsShareExtern dset *pvar_dset_devBoSoftCallback;
 epicsShareExtern dset *pvar_dset_devBoGeneralTime;
 epicsShareExtern dset *pvar_dset_asynBoInt32;
 epicsShareExtern dset *pvar_dset_asynBoUInt32Digital;
+epicsShareExtern dset *pvar_dset_devAibpm;
 epicsShareExtern dset *pvar_dset_devCalcoutSoft;
 epicsShareExtern dset *pvar_dset_devCalcoutSoftCallback;
 epicsShareExtern dset *pvar_dset_devEventSoft;
@@ -227,7 +227,6 @@ static const char * const deviceSupportNames[82] = {
     "asynAiInt32Average",
     "asynAiFloat64",
     "asynAiFloat64Average",
-    "devAibpm",
     "devAoSoft",
     "devAoSoftRaw",
     "devAoSoftCallback",
@@ -243,6 +242,7 @@ static const char * const deviceSupportNames[82] = {
     "devBoGeneralTime",
     "asynBoInt32",
     "asynBoUInt32Digital",
+    "devAibpm",
     "devCalcoutSoft",
     "devCalcoutSoftCallback",
     "devEventSoft",
@@ -312,7 +312,6 @@ static const dset * const devsl[82] = {
     pvar_dset_asynAiInt32Average,
     pvar_dset_asynAiFloat64,
     pvar_dset_asynAiFloat64Average,
-    pvar_dset_devAibpm,
     pvar_dset_devAoSoft,
     pvar_dset_devAoSoftRaw,
     pvar_dset_devAoSoftCallback,
@@ -328,6 +327,7 @@ static const dset * const devsl[82] = {
     pvar_dset_devBoGeneralTime,
     pvar_dset_asynBoInt32,
     pvar_dset_asynBoUInt32Digital,
+    pvar_dset_devAibpm,
     pvar_dset_devCalcoutSoft,
     pvar_dset_devCalcoutSoftCallback,
     pvar_dset_devEventSoft,
