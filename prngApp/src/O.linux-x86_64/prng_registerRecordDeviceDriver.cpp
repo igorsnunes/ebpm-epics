@@ -158,7 +158,7 @@ epicsShareExtern dset *pvar_dset_devBoSoftCallback;
 epicsShareExtern dset *pvar_dset_devBoGeneralTime;
 epicsShareExtern dset *pvar_dset_asynBoInt32;
 epicsShareExtern dset *pvar_dset_asynBoUInt32Digital;
-epicsShareExtern dset *pvar_dset_devAibpm;
+epicsShareExtern dset *pvar_dset_devBPMbo;
 epicsShareExtern dset *pvar_dset_devCalcoutSoft;
 epicsShareExtern dset *pvar_dset_devCalcoutSoftCallback;
 epicsShareExtern dset *pvar_dset_devEventSoft;
@@ -242,7 +242,7 @@ static const char * const deviceSupportNames[82] = {
     "devBoGeneralTime",
     "asynBoInt32",
     "asynBoUInt32Digital",
-    "devAibpm",
+    "devBPMbo",
     "devCalcoutSoft",
     "devCalcoutSoftCallback",
     "devEventSoft",
@@ -327,7 +327,7 @@ static const dset * const devsl[82] = {
     pvar_dset_devBoGeneralTime,
     pvar_dset_asynBoInt32,
     pvar_dset_asynBoUInt32Digital,
-    pvar_dset_devAibpm,
+    pvar_dset_devBPMbo,
     pvar_dset_devCalcoutSoft,
     pvar_dset_devCalcoutSoftCallback,
     pvar_dset_devEventSoft,

@@ -36,6 +36,8 @@
 //#ifndef _BPM_PROTOTYPES_DOXYGEN_H
 //#  define _BPM_PROTOTYPES_DOXYGEN_H
 
+#include "drvBPM.h"
+
 #include <stdlib.h>
 #include <stddef.h>
 #include <string.h>
@@ -56,13 +58,36 @@
 #include <epicsExport.h>
 
 /*Libraries from ZeroMQ and majordome*/
+#include "/usr/local/lib/bpm_client.h"
+#include "/usr/local/lib/bpm_client_codes.h"
 
-#include "/usr/local/lib/bpm_client.h"/*example*/
-#include "/usr/local/lib/bpm_client_codes.h"/*example*/
-//#include <bpm_client_codes.h>
 
-//#include <mdp.h>
+
 #include <inttypes.h>
+
+#define MAX_BPM_COMMANDS 1
+
+typedef struct {
+
+    BPMCommand command;
+
+    char *commandString;
+
+} BPMCommandStruct;
+
+/**
+ *@brief BPM command vector
+ *
+ *Vector for selecting the right command for hardware execution
+ *
+ */
+
+static BPMCommandStruct BPMCommands[MAX_BPM_COMMANDS] = {
+
+    {BPMBlinkLeds,          BPMBLinkLedsString}           /* int32, write */
+
+};
+
 
 /**
  * @brief BPM Driver private struct.
@@ -81,13 +106,26 @@ typedef struct {
 } bpmDrvPvt;
 
 /* These functions are in public interfaces */
-static asynStatus int32Write         (void *drvPvt, asynUser *pasynUser,
+static asynStatus int32Write        (void *drvPvt, asynUser *pasynUser,
                                      epicsInt32 value);
 static asynStatus int32Read         (void *drvPvt, asynUser *pasynUser,
-                                     epicsInt32 *value);
+                                    epicsInt32 *value);
 static void bpmReport               (void *drvPvt, FILE *fp, int details);
 static asynStatus bpmConnect        (void *drvPvt, asynUser *pasynUser);
 static asynStatus bpmDisconnect     (void *drvPvt, asynUser *pasynUser);
+static asynStatus drvUserCreate     (void *drvPvt, asynUser *pasynUser,                                          const char *drvInfo,                                                        const char **pptypeName,                                                    size_t *psize);
+static asynStatus drvUserGetType    (void *drvPvt, asynUser *pasynUser,                                          const char **pptypeName,                                                    size_t *psize);
+static asynStatus drvUserDestroy    (void *drvPvt, asynUser *pasynUser);
+
+
+/*
+ *asynDrvUser methods
+ */
+static struct asynDrvUser bpmDrvUser = {
+   drvUserCreate,
+   drvUserGetType,
+   drvUserDestroy
+};
 
 /*
  * asynCommon methods
@@ -127,6 +165,9 @@ int bpmConfig(const char *portNumber)
 	/*
 	*  Link with higher level routines
 	*/
+	pPvt->drvUser.interfaceType = asynDrvUserType;
+	pPvt->drvUser.pinterface  = (void *)&bpmDrvUser;
+	pPvt->drvUser.drvPvt = pPvt;
 	pPvt->common.interfaceType = asynCommonType;
 	pPvt->common.pinterface  = (void *)&bpmDrvCommon;
 	pPvt->common.drvPvt = pPvt;
@@ -153,6 +194,13 @@ int bpmConfig(const char *portNumber)
 		return -1;
 	}
 
+	status = pasynManager->registerInterface(pPvt->portNumber,&pPvt->drvUser);
+
+	if (status != asynSuccess) {
+	        errlogPrintf("AIMConfig ERROR: Can't register drvUser\n");
+	        return -1;
+	}
+
 	/*Instantiate bpm client class*/
 	char bpm_param[50];
 	int verbose = 0;
@@ -167,6 +215,53 @@ int bpmConfig(const char *portNumber)
 	return(0);
 }
 
+/* asynDrvUser routines */
+
+static asynStatus drvUserCreate(void *drvPvt, asynUser *pasynUser,
+                                const char *drvInfo,
+                                const char **pptypeName, size_t *psize)
+
+{
+    int i;
+    const char *pstring;
+
+    for (i=0; i<MAX_BPM_COMMANDS; i++) {
+        pstring = BPMCommands[i].commandString;
+        if (epicsStrCaseCmp(drvInfo, pstring) == 0) {
+            pasynUser->reason = BPMCommands[i].command;
+            if (pptypeName) *pptypeName = epicsStrDup(pstring);
+            if (psize) *psize = sizeof(BPMCommands[i].command);
+            asynPrint(pasynUser, ASYN_TRACE_FLOW,
+              "drvBPM::drvUserCreate, command=%s\n", pstring);
+            return(asynSuccess);
+        }
+    }
+    asynPrint(pasynUser, ASYN_TRACE_ERROR,
+              "drvBPM::drvUserCreate, unknown command=%s\n", drvInfo);
+    return(asynError);
+}
+
+static asynStatus drvUserGetType(void *drvPvt, asynUser *pasynUser,
+
+                                 const char **pptypeName, size_t *psize)
+
+{
+    BPMCommand command = pasynUser->reason;
+    *pptypeName = NULL;
+    *psize = 0;
+    if (pptypeName)
+        *pptypeName = epicsStrDup(BPMCommands[command].commandString);
+
+    if (psize) *psize = sizeof(command);
+    return(asynSuccess);
+
+}
+
+static asynStatus drvUserDestroy(void *drvPvt, asynUser *pasynUser)
+
+{
+    return(asynSuccess);
+}
 
 /* Report  parameters */
 static void bpmReport(void *drvPvt, FILE *fp, int details)

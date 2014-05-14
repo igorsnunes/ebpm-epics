@@ -1,4 +1,5 @@
-prngdrv.o: ../prngdrv.c /home/igor/epics/base/include/errlog.h \
+prngdrv.o: ../prngdrv.c ../drvBPM.h \
+ /home/igor/epics/base/include/errlog.h \
  /home/igor/epics/base/include/shareLib.h \
  /home/igor/epics/base/include/compilerDependencies.h \
  /home/igor/epics/base/include/iocsh.h \
