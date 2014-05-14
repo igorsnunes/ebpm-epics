@@ -39,7 +39,12 @@ prng_SRCS_vxWorks += -nil-
 # Finally link to the EPICS Base libraries
 prng_LIBS += $(EPICS_BASE_IOC_LIBS)
 prng_LIBS += asyn
+
 prng_SYS_LIBS += bpmclient
+prng_SYS_LIBS += zmq
+prng_SYS_LIBS += czmq
+prng_SYS_LIBS += mdp
+
 #===========================
 
 include $(TOP)/configure/RULES
