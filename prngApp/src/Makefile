@@ -8,9 +8,12 @@ include $(TOP)/configure/CONFIG
 #=============================
 # Build the IOC application
 
+
 PROD_IOC = prng
-# prng.dbd will be created and installed
 DBD += prng.dbd
+prng_INCLUDES += -I/usr/local/lib 
+
+# prng.dbd will be created and installed
 
 # prng.dbd will be made up from these files:
 prng_DBD += base.dbd
@@ -21,7 +24,6 @@ prng_DBD += prngdev.dbd
 
 # Add all the support libraries needed by this IOC
 #prng_LIBS += xxx
-
 # prng_registerRecordDeviceDriver.cpp derives from prng.dbd
 prng_SRCS += prng_registerRecordDeviceDriver.cpp
 prng_SRCS += devprng.c
@@ -37,6 +39,7 @@ prng_SRCS_vxWorks += -nil-
 # Finally link to the EPICS Base libraries
 prng_LIBS += $(EPICS_BASE_IOC_LIBS)
 prng_LIBS += asyn
+prng_SYS_LIBS += bpmclient
 #===========================
 
 include $(TOP)/configure/RULES

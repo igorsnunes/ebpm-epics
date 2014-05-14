@@ -143,7 +143,7 @@ epicsShareExtern dset *pvar_dset_asynAiInt32;
 epicsShareExtern dset *pvar_dset_asynAiInt32Average;
 epicsShareExtern dset *pvar_dset_asynAiFloat64;
 epicsShareExtern dset *pvar_dset_asynAiFloat64Average;
-epicsShareExtern dset *pvar_dset_devAiPrng;
+epicsShareExtern dset *pvar_dset_devAibpm;
 epicsShareExtern dset *pvar_dset_devAoSoft;
 epicsShareExtern dset *pvar_dset_devAoSoftRaw;
 epicsShareExtern dset *pvar_dset_devAoSoftCallback;
@@ -227,7 +227,7 @@ static const char * const deviceSupportNames[82] = {
     "asynAiInt32Average",
     "asynAiFloat64",
     "asynAiFloat64Average",
-    "devAiPrng",
+    "devAibpm",
     "devAoSoft",
     "devAoSoftRaw",
     "devAoSoftCallback",
@@ -312,7 +312,7 @@ static const dset * const devsl[82] = {
     pvar_dset_asynAiInt32Average,
     pvar_dset_asynAiFloat64,
     pvar_dset_asynAiFloat64Average,
-    pvar_dset_devAiPrng,
+    pvar_dset_devAibpm,
     pvar_dset_devAoSoft,
     pvar_dset_devAoSoftRaw,
     pvar_dset_devAoSoftCallback,
@@ -400,7 +400,7 @@ epicsShareExtern void (*pvar_func_asSub)(void);
 epicsShareExtern void (*pvar_func_asynRegister)(void);
 epicsShareExtern void (*pvar_func_asynInterposeFlushRegister)(void);
 epicsShareExtern void (*pvar_func_asynInterposeEosRegister)(void);
-epicsShareExtern void (*pvar_func_prngRegister)(void);
+epicsShareExtern void (*pvar_func_bpmRegister)(void);
 
 epicsShareExtern int *pvar_int_asCaDebug;
 epicsShareExtern int *pvar_int_dbRecordsOnceOnly;
@@ -414,7 +414,7 @@ static struct iocshVarDef vardefs[] = {
 
 int prng_registerRecordDeviceDriver(DBBASE *pbase)
 {
-    const char *bldTop = "/home/igor/ioc_test_2";
+    const char *bldTop = "/home/igor/git-repos/ebpm-epics";
     const char *envTop = getenv("TOP");
 
     if (envTop && strcmp(envTop, bldTop)) {
@@ -435,7 +435,7 @@ int prng_registerRecordDeviceDriver(DBBASE *pbase)
     (*pvar_func_asynRegister)();
     (*pvar_func_asynInterposeFlushRegister)();
     (*pvar_func_asynInterposeEosRegister)();
-    (*pvar_func_prngRegister)();
+    (*pvar_func_bpmRegister)();
     iocshRegisterVariable(vardefs);
     return 0;
 }

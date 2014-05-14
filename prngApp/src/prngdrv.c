@@ -57,8 +57,11 @@
 
 /*Libraries from ZeroMQ and majordome*/
 
-#include <clientzeromq.h>/*example*/
-#include <mdp.h>
+#include "/usr/local/lib/bpm_client.h"/*example*/
+#include "/usr/local/lib/bpm_client_codes.h"/*example*/
+//#include <bpm_client_codes.h>
+
+//#include <mdp.h>
 #include <inttypes.h>
 
 /**
@@ -183,7 +186,7 @@ static asynStatus bpmConnect(void *drvPvt, asynUser *pasynUser)
 	int verbose = 0;
 	bpmDrvPvt *pPvt = (bpmDrvPvt*)drvPvt;
 	if(pPvt->bpm_client == NULL)
-		pPvt->client = bpm_client_new(pPvt->bpm_param,verbose);
+		pPvt->bpm_client = bpm_client_new(pPvt->bpm_param,verbose);
 	
 	pasynManager->exceptionConnect(pasynUser);
 	return(asynSuccess);
@@ -193,7 +196,7 @@ static asynStatus bpmConnect(void *drvPvt, asynUser *pasynUser)
 static asynStatus bpmDisconnect(void *drvPvt, asynUser *pasynUser)
 {
 	bpmDrvPvt *pPvt = (bpmDrvPvt*)drvPvt;
-	bpm_client_destroy(pPvt->bpm_client);
+	bpm_client_destroy(&pPvt->bpm_client);
 	pasynManager->exceptionDisconnect(pasynUser);
 	return(asynSuccess);
 }
@@ -215,7 +218,7 @@ static asynStatus int32Write(void *drvPvt, asynUser *pasynUser,
 /* iocsh functions */
 
 static const iocshArg bpmConfigArg0 = {"portNumber",iocshArgString};
-static const iocshArg * const bpmConfigArgs[1] = {&bpmConfigArg0}
+static const iocshArg * const bpmConfigArgs[1] = {&bpmConfigArg0};
 static const iocshFuncDef bpmConfigDef = {"bpmConfig",1,bpmConfigArgs};
 static void bpmConfigFunc(const iocshArgBuf *args)
 {
