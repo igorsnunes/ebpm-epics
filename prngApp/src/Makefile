@@ -27,7 +27,7 @@ prng_DBD += prngdev.dbd
 # prng_registerRecordDeviceDriver.cpp derives from prng.dbd
 prng_SRCS += prng_registerRecordDeviceDriver.cpp
 prng_SRCS += devprng.c
-prng_SRCS += prngdrv.c
+prng_SRCS += drvBPM.c
 prng_SRCS += devBPMbo.c
 prng_SRCS += commonDev.c
 # Build the main IOC entry point on workstation OSs.

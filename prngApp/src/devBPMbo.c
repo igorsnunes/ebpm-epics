@@ -65,6 +65,20 @@ static long init_record_bo(boRecord *pao)
     }
     pPvt->pasynInt32 = (asynInt32 *)pasynInterface->pinterface;
     pPvt->asynInt32Pvt = pasynInterface->drvPvt;
+
+    /* Get the asynDrvUser interface */
+
+    pasynInterface = pasynManager->findInterface(pasynUser, 
+
+                                                 asynDrvUserType, 1);
+
+	if (!pasynInterface) {
+		asynPrint(pasynUser, ASYN_TRACE_ERROR,"devMcaAsyn::init_record, %s find drvUser interface failed\n",pmca->name);
+
+	}
+
+	pPvt->pasynDrvUser = (asynDrvUser *)pasynInterface->pinterface;
+	pPvt->asynDrvUserPvt = pasynInterface->drvPvt;
 	
 	if (findDrvInfoBo(pao, pasynUser, BPMBLinkLedsString, BPMBlinkLeds))
 
