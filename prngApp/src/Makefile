@@ -29,6 +29,7 @@ prng_SRCS += prng_registerRecordDeviceDriver.cpp
 prng_SRCS += devprng.c
 prng_SRCS += prngdrv.c
 prng_SRCS += devBPMbo.c
+prng_SRCS += commonDev.c
 # Build the main IOC entry point on workstation OSs.
 prng_SRCS_DEFAULT += prngMain.cpp
 prng_SRCS_vxWorks += -nil-

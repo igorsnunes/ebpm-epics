@@ -1,47 +1,7 @@
-#include <stdlib.h>
-#include <epicsExport.h>
-#include <dbAccess.h>
-#include <devSup.h>
-#include <recGbl.h>
-#include <boRecord.h>
-
-#include <string.h>
-#include <ctype.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <osiUnistd.h>
-#include <osiSock.h>
-#include <cantProceed.h>
-#include <errlog.h>
-#include <iocsh.h>
-#include <epicsAssert.h>
-#include <epicsExit.h>
-#include <epicsStdio.h>
-#include <epicsString.h>
-#include <epicsThread.h>
-#include <epicsTime.h>
-#include <osiUnistd.h>
-#include "asynInt32.h"
-#include <epicsExport.h>
-#include "asynDriver.h"
-#include "asynOctet.h"
-#include "asynInterposeCom.h"
-#include "asynInterposeEos.h"
-#include <asynEpicsUtils.h>
+#include <commonDev.h>
 
 static long init_record_bo(boRecord *pao);
 static long write_bo(boRecord *pao);
-
-typedef struct {
-    asynUser *pasynUser;
-    asynInt32 *pasynInt32;
-    void *asynInt32Pvt;
-    size_t nread;
-    int *data;
-} bpmPvt;
-
-
 
 struct {
 
@@ -105,13 +65,16 @@ static long init_record_bo(boRecord *pao)
     }
     pPvt->pasynInt32 = (asynInt32 *)pasynInterface->pinterface;
     pPvt->asynInt32Pvt = pasynInterface->drvPvt;
+	
+	if (findDrvInfoBo(pao, pasynUser, BPMBLinkLedsString, BPMBlinkLeds))
 
 	return 0;
 }
+
 static long write_bo(boRecord *pao)
 {
 	bpmPvt *pPvt = (bpmPvt *)pao->dpvt;
 	pPvt = (bpmPvt *)pPvt->pasynUser->userPvt;
-	pPvt->pasynInt32->read(pPvt->asynInt32Pvt, pPvt->pasynUser,&pao->rval);
+	pPvt->pasynInt32->write(pPvt->asynInt32Pvt, pPvt->pasynUser,pao->rval);
 	return 0;
 }
