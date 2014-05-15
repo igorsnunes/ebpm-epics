@@ -73,7 +73,7 @@ static long init_record_bo(boRecord *pao)
                                                  asynDrvUserType, 1);
 
 	if (!pasynInterface) {
-		asynPrint(pasynUser, ASYN_TRACE_ERROR,"devMcaAsyn::init_record, %s find drvUser interface failed\n",pmca->name);
+		asynPrint(pasynUser, ASYN_TRACE_ERROR,"devMcaAsyn::init_record, find drvUser interface failed\n");
 
 	}
 

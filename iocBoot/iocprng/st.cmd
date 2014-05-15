@@ -12,7 +12,7 @@ dbLoadDatabase "dbd/prng.dbd"
 prng_registerRecordDeviceDriver pdbbase
 
 ## Load record instances
-dbLoadRecords("db/prng.db","P=port1")
+dbLoadRecords("db/leds_test.db","P=0")
 bpmConfig("0")
 
 cd ${TOP}/iocBoot/${IOC}

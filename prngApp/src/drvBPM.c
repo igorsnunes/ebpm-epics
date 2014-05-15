@@ -312,9 +312,10 @@ static asynStatus int32Write(void *drvPvt, asynUser *pasynUser,
 	bpmDrvPvt *priv = (bpmDrvPvt*)drvPvt;
 	if (pasynUser->reason == BPMBlinkLeds){
 		if(value){
-			sprintf(variable_zmq,"BPM%c:DEVIO:FMC130M_4CH",priv->portNumber);
+			sprintf(variable_zmq,"BPM%s:DEVIO:FMC130M_4CH",priv->portNumber);
 			bpm_blink_leds(priv->bpm_client, variable_zmq, leds);
 		}
+	}
 
 	return asynSuccess;
 }
