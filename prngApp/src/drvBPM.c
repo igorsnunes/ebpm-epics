@@ -162,6 +162,24 @@ int bpmConfig(const char *portNumber)
 	int status;
 	pPvt = callocMustSucceed(1, sizeof(bpmDrvPvt), "bpmDrvPvt");
 	pPvt->portNumber = epicsStrDup(portNumber);
+
+	/*Instantiate bpm client class*/
+	char bpm_param[50];
+	int verbose = 0;
+	sprintf(bpm_param,"tcp://10.0.17.35");
+	//sprintf(bpm_param,"ipc:///tmp/bpm/%s",pPvt->portNumber);
+	pPvt->bpm_param = epicsStrDup(bpm_param); 
+	bpm_client_t *bpm_client;
+	pPvt->bpm_client = bpm_client = NULL;
+	bpm_client = bpm_client_new(bpm_param,verbose);
+	if(bpm_client != NULL){
+		pPvt->bpm_client = bpm_client;
+		printf("\ndebug client created\n");
+	}
+	else{
+		return -1;
+	}
+
 	/*
 	*  Link with higher level routines
 	*/
@@ -200,17 +218,6 @@ int bpmConfig(const char *portNumber)
 	        errlogPrintf("AIMConfig ERROR: Can't register drvUser\n");
 	        return -1;
 	}
-
-	/*Instantiate bpm client class*/
-	char bpm_param[50];
-	int verbose = 0;
-	sprintf(bpm_param,"ipc:///tmp/bpm/%s",pPvt->portNumber);
-	pPvt->bpm_param = epicsStrDup(bpm_param); 
-	bpm_client_t *bpm_client = bpm_client_new(bpm_param,verbose);
-	if(bpm_client != NULL)
-		pPvt->bpm_client = bpm_client;
-	else
-		return -1;
 
 	return(0);
 }
