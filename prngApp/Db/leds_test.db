@@ -1,5 +1,7 @@
-record(bo,"Led"){
+record(bo,"BPM:Led"){
   field(DTYP,"Led")
   field(DESC,"blink leds")
   field(OUT,"@asyn($(P),0,0)BLINK_LEDS")
-}
+  field(ONAM, "BLINK")
+  field(ZNAM, "OFF")
+ }

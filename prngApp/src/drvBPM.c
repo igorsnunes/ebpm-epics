@@ -166,7 +166,7 @@ int bpmConfig(const char *portNumber)
 	/*Instantiate bpm client class*/
 	char bpm_param[50];
 	int verbose = 0;
-	sprintf(bpm_param,"tcp://10.0.17.35");
+	sprintf(bpm_param,"tcp://10.0.18.35:5555");
 	//sprintf(bpm_param,"ipc:///tmp/bpm/%s",pPvt->portNumber);
 	pPvt->bpm_param = epicsStrDup(bpm_param); 
 	bpm_client_t *bpm_client;
@@ -311,16 +311,34 @@ static asynStatus int32Read(void *drvPvt, asynUser *pasynUser,
     return asynSuccess;
 }
 
+static void blink_leds(bpm_client_t *client, char *variable_zmq)
+{
+	int i,j;
+	for (i = 0; i < 500; ++i) {
+		uint32_t leds = (1 << 1);
+		unsigned int j;
+		for (j = 0; j < 3; ++j) {
+			if (!zctx_interrupted) {
+				bpm_blink_leds (client, variable_zmq, leds);
+				usleep (80000);
+				leds <<= 1;
+			}
+		}
+	}
+	return;
+}
+
+
 static asynStatus int32Write(void *drvPvt, asynUser *pasynUser,
                             epicsInt32 value)
 {
-	uint32_t leds = (1 << 1);
 	char variable_zmq[100];
 	bpmDrvPvt *priv = (bpmDrvPvt*)drvPvt;
 	if (pasynUser->reason == BPMBlinkLeds){
 		if(value){
 			sprintf(variable_zmq,"BPM%s:DEVIO:FMC130M_4CH",priv->portNumber);
-			bpm_blink_leds(priv->bpm_client, variable_zmq, leds);
+			blink_leds(priv->bpm_client, variable_zmq);
+			printf("\nblinked\n");
 		}
 	}
 
