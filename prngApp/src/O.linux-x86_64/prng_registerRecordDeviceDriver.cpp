@@ -148,6 +148,7 @@ epicsShareExtern dset *pvar_dset_devAoSoftRaw;
 epicsShareExtern dset *pvar_dset_devAoSoftCallback;
 epicsShareExtern dset *pvar_dset_asynAoInt32;
 epicsShareExtern dset *pvar_dset_asynAoFloat64;
+epicsShareExtern dset *pvar_dset_devBPMao;
 epicsShareExtern dset *pvar_dset_devBiSoft;
 epicsShareExtern dset *pvar_dset_devBiSoftRaw;
 epicsShareExtern dset *pvar_dset_asynBiInt32;
@@ -182,6 +183,7 @@ epicsShareExtern dset *pvar_dset_devMbboSoftRaw;
 epicsShareExtern dset *pvar_dset_devMbboSoftCallback;
 epicsShareExtern dset *pvar_dset_asynMbboInt32;
 epicsShareExtern dset *pvar_dset_asynMbboUInt32Digital;
+epicsShareExtern dset *pvar_dset_devBPMmbbo;
 epicsShareExtern dset *pvar_dset_devMbboDirectSoft;
 epicsShareExtern dset *pvar_dset_devMbboDirectSoftRaw;
 epicsShareExtern dset *pvar_dset_devMbboDirectSoftCallback;
@@ -214,9 +216,10 @@ epicsShareExtern dset *pvar_dset_asynFloat32ArrayWfOut;
 epicsShareExtern dset *pvar_dset_asynFloat64ArrayWfIn;
 epicsShareExtern dset *pvar_dset_asynFloat64ArrayWfOut;
 epicsShareExtern dset *pvar_dset_asynFloat64TimeSeries;
+epicsShareExtern dset *pvar_dset_devBPMwf;
 epicsShareExtern dset *pvar_dset_asynRecordDevice;
 
-static const char * const deviceSupportNames[82] = {
+static const char * const deviceSupportNames[85] = {
     "devAaiSoft",
     "devAaoSoft",
     "devAiSoft",
@@ -232,6 +235,7 @@ static const char * const deviceSupportNames[82] = {
     "devAoSoftCallback",
     "asynAoInt32",
     "asynAoFloat64",
+    "devBPMao",
     "devBiSoft",
     "devBiSoftRaw",
     "asynBiInt32",
@@ -266,6 +270,7 @@ static const char * const deviceSupportNames[82] = {
     "devMbboSoftCallback",
     "asynMbboInt32",
     "asynMbboUInt32Digital",
+    "devBPMmbbo",
     "devMbboDirectSoft",
     "devMbboDirectSoftRaw",
     "devMbboDirectSoftCallback",
@@ -298,10 +303,11 @@ static const char * const deviceSupportNames[82] = {
     "asynFloat64ArrayWfIn",
     "asynFloat64ArrayWfOut",
     "asynFloat64TimeSeries",
+    "devBPMwf",
     "asynRecordDevice"
 };
 
-static const dset * const devsl[82] = {
+static const dset * const devsl[85] = {
     pvar_dset_devAaiSoft,
     pvar_dset_devAaoSoft,
     pvar_dset_devAiSoft,
@@ -317,6 +323,7 @@ static const dset * const devsl[82] = {
     pvar_dset_devAoSoftCallback,
     pvar_dset_asynAoInt32,
     pvar_dset_asynAoFloat64,
+    pvar_dset_devBPMao,
     pvar_dset_devBiSoft,
     pvar_dset_devBiSoftRaw,
     pvar_dset_asynBiInt32,
@@ -351,6 +358,7 @@ static const dset * const devsl[82] = {
     pvar_dset_devMbboSoftCallback,
     pvar_dset_asynMbboInt32,
     pvar_dset_asynMbboUInt32Digital,
+    pvar_dset_devBPMmbbo,
     pvar_dset_devMbboDirectSoft,
     pvar_dset_devMbboDirectSoftRaw,
     pvar_dset_devMbboDirectSoftCallback,
@@ -383,6 +391,7 @@ static const dset * const devsl[82] = {
     pvar_dset_asynFloat64ArrayWfIn,
     pvar_dset_asynFloat64ArrayWfOut,
     pvar_dset_asynFloat64TimeSeries,
+    pvar_dset_devBPMwf,
     pvar_dset_asynRecordDevice
 };
 
@@ -429,7 +438,7 @@ int prng_registerRecordDeviceDriver(DBBASE *pbase)
     }
 
     registerRecordTypes(pbase, 29, recordTypeNames, rtl);
-    registerDevices(pbase, 82, deviceSupportNames, devsl);
+    registerDevices(pbase, 85, deviceSupportNames, devsl);
     registerDrivers(pbase, 1, driverSupportNames, drvsl);
     (*pvar_func_asSub)();
     (*pvar_func_asynRegister)();

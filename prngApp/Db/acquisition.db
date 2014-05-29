@@ -1,0 +1,205 @@
+record(ao,"BPM:ACQ:Samples"){
+	field(DTYP,"BPMao")
+	field(DESC,"Number of samples for an acquisition")
+	field(SCAN,"Passive")
+	field(OUT,"@asyn($(P),0,0)ACQ_SAMPLES")
+ }
+record(mbbo, "BPM:ACQ:dataOrigin"){
+	field(DTYP, "BPMmbbo")
+	field(DESC, "Acquisition's origin")
+	field(SCAN,"Passive")
+	field(OUT,"@asyn($(P),0,0)ACQ_ORIGIN")
+	field(NOBT,"3")
+	field(ZRVL,"0")
+	field(ONVL,"1")
+	field(TWVL,"2")
+	field(THVL,"3")
+	field(FRVL,"4")
+	field(ZRST,"ADC")
+	field(ONST,"TBT_AMP")
+	field(TWST,"TBT_POS")
+	field(THST,"FOFB_AMP")
+	field(FRVL,"FOFB_POS")
+}
+
+record(waveform,"BPM:ACQ:ADC:ChannelA:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel A ADC acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_ADC_CHA_WF")
+	field(NELM,"100000")
+	field(FTVL,"SHORT")
+}
+
+record(waveform,"BPM:ACQ:ADC:ChannelB:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel B ADC acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_ADC_CHB_WF")
+	field(NELM,"100000")
+	field(FTVL,"SHORT")
+}
+
+record(waveform,"BPM:ACQ:ADC:ChannelC:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel C ADC acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_ADC_CHC_WF")
+	field(NELM,"100000")
+	field(FTVL,"SHORT")
+}
+
+record(waveform,"BPM:ACQ:ADC:ChannelD:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel D ADC acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_ADC_CHD_WF")
+	field(NELM,"100000")
+	field(FTVL,"SHORT")
+}
+
+record(waveform,"BPM:ACQ:TBT_AMP:ChannelX:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel X TBT AMP acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_TBT_AMP_CHX_WF")
+	field(NELM,"100000")
+	field(FTVL,"ULONG")
+}
+
+
+record(waveform,"BPM:ACQ:TBT_AMP:ChannelY:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel Y TBT AMP acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_TBT_AMP_CHY_WF")
+	field(NELM,"100000")
+	field(FTVL,"ULONG")
+}
+
+record(waveform,"BPM:ACQ:TBT_AMP:ChannelQ:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel Q TBT AMP acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_TBT_AMP_CHQ_WF")
+	field(NELM,"100000")
+	field(FTVL,"ULONG")
+}
+
+record(waveform,"BPM:ACQ:TBT_AMP:ChannelSUM:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel SUM TBT AMP acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_TBT_AMP_CHSUM_WF")
+	field(NELM,"100000")
+	field(FTVL,"ULONG")
+}
+
+record(waveform,"BPM:ACQ:TBT_POS:ChannelX:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel X TBT POS acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_TBT_POS_CHX_WF")
+	field(NELM,"100000")
+	field(FTVL,"ULONG")
+}
+
+record(waveform,"BPM:ACQ:TBT_POS:ChannelY:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel Y TBT POS acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_TBT_POS_CHY_WF")
+	field(NELM,"100000")
+	field(FTVL,"ULONG")
+}
+
+record(waveform,"BPM:ACQ:TBT_POS:ChannelQ:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel Q TBT POS acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_TBT_POS_CHQ_WF")
+	field(NELM,"100000")
+	field(FTVL,"ULONG")
+}
+
+record(waveform,"BPM:ACQ:TBT_POS:ChannelSUM:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel SUM TBT POS acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_TBT_POS_CHSUM_WF")
+	field(NELM,"100000")
+	field(FTVL,"ULONG")
+}
+
+record(waveform,"BPM:ACQ:FOFB_AMP:ChannelX:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel X FOFB AMP acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_FOFB_AMP_CHX_WF")
+	field(NELM,"100000")
+	field(FTVL,"ULONG")
+}
+
+
+record(waveform,"BPM:ACQ:FOFB_AMP:ChannelY:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel Y FOFB AMP acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_FOFB_AMP_CHY_WF")
+	field(NELM,"100000")
+	field(FTVL,"ULONG")
+}
+
+record(waveform,"BPM:ACQ:FOFB_AMP:ChannelQ:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel Q FOFB AMP acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_FOFB_AMP_CHQ_WF")
+	field(NELM,"100000")
+	field(FTVL,"ULONG")
+}
+
+record(waveform,"BPM:ACQ:FOFB_AMP:ChannelSUM:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel SUM FOFB AMP acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_FOFB_AMP_CHSUM_WF")
+	field(NELM,"100000")
+	field(FTVL,"ULONG")
+}
+
+record(waveform,"BPM:ACQ:FOFB_POS:ChannelX:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel X FOFB POS acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_FOFB_POS_CHX_WF")
+	field(NELM,"100000")
+	field(FTVL,"ULONG")
+}
+
+record(waveform,"BPM:ACQ:FOFB_POS:ChannelY:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel Y FOFB POS acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_FOFB_POS_CHY_WF")
+	field(NELM,"100000")
+	field(FTVL,"ULONG")
+}
+
+record(waveform,"BPM:ACQ:FOFB_POS:ChannelQ:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel Q FOFB POS acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_FOFB_POS_CHQ_WF")
+	field(NELM,"100000")
+	field(FTVL,"ULONG")
+}
+
+record(waveform,"BPM:ACQ:FOFB_POS:ChannelSUM:waveform){
+	field(DTYP,"BPMwf")
+	field(DESC, "Channel SUM FOFB POS acquisition")
+	field(SCAN, "Passive")
+	field(INP,"@asyn($(P),0,0)ACQ_FOFB_POS_CHSUM_WF")
+	field(NELM,"100000")
+	field(FTVL,"ULONG")
+}

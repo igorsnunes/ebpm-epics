@@ -1,4 +1,7 @@
 include "base.dbd"
 include "asyn.dbd"
 device(bo,INST_IO,devBPMbo,"Led")
+device(ao,INST_IO,devBPMao,"BPMao")
+device(mbbo,INST_IO,devBPMmbbo,"BPMmbbo")
+device(waveform,INST_IO,devBPMwf,"BPMwf")
 registrar(bpmRegister)
