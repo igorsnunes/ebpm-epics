@@ -24,7 +24,10 @@ devBPMbo.o: ../devBPMbo.c ../commonDev.h \
  /home/igor/epics/base/include/db_field_log.h \
  /home/igor/epics/base/include/devSup.h \
  /home/igor/epics/base/include/recGbl.h \
- /home/igor/epics/base/include/boRecord.h ../drvBPM.h \
+ /home/igor/epics/base/include/boRecord.h \
+ /home/igor/epics/base/include/mbboRecord.h \
+ /home/igor/epics/base/include/waveformRecord.h \
+ /home/igor/epics/base/include/aoRecord.h ../drvBPM.h \
  /home/igor/epics/base/include/os/Linux/osiUnistd.h \
  /home/igor/epics/base/include/osiSock.h \
  /home/igor/epics/base/include/os/Linux/osdSock.h \
@@ -39,10 +42,12 @@ devBPMbo.o: ../devBPMbo.c ../commonDev.h \
  /home/igor/epics/base/include/epicsThread.h \
  /home/igor/epics/base/include/os/Linux/osdThread.h \
  /home/igor/epics/base/include/epicsTime.h \
- /home/igor/asyn/asyn4-21/include/asynInt32.h \
+ /home/igor/asyn/asyn4-21/include/asynInt32Array.h \
  /home/igor/asyn/asyn4-21/include/asynDriver.h \
  /home/igor/epics/base/include/ellLib.h \
  /home/igor/epics/base/include/epicsTypes.h \
+ /home/igor/asyn/asyn4-21/include/asynInt16Array.h \
+ /home/igor/asyn/asyn4-21/include/asynInt32.h \
  /home/igor/asyn/asyn4-21/include/asynOctet.h \
  /home/igor/asyn/asyn4-21/include/asynInterposeCom.h \
  /home/igor/asyn/asyn4-21/include/asynInterposeEos.h \

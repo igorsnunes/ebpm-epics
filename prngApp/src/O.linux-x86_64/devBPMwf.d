@@ -1,4 +1,4 @@
-commonDev.o: ../commonDev.c ../commonDev.h \
+devBPMwf.o: ../devBPMwf.c ../commonDev.h \
  /home/igor/epics/base/include/epicsExport.h \
  /home/igor/epics/base/include/shareLib.h \
  /home/igor/epics/base/include/dbAccess.h \

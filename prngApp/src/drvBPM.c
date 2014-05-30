@@ -65,7 +65,7 @@
 
 #include <inttypes.h>
 
-#define MAX_BPM_COMMANDS 1
+#define MAX_BPM_COMMANDS 23
 
 typedef struct {
 
@@ -84,7 +84,36 @@ typedef struct {
 
 static BPMCommandStruct BPMCommands[MAX_BPM_COMMANDS] = {
 
-    {BPMBlinkLeds,          BPMBLinkLedsString}           /* int32, write */
+    {BPMBlinkLeds,          BPMBLinkLedsString},           /* int32, write */
+
+    {BPMAcqOrigin,          BPMAcqOriginString},           /* int32, write */
+
+    {BPMAcqSamples,          BPMAcqSamplesString},           /* int32, write */
+
+    {BPMAcqAdcChAWF,        BPMAcqAdcChAWFString},           /* int16, read */
+    {BPMAcqAdcChBWF,        BPMAcqAdcChBWFString},           /* int16, read */
+    {BPMAcqAdcChCWF,        BPMAcqAdcChCWFString},           /* int16, read */
+    {BPMAcqAdcChDWF,        BPMAcqAdcChDWFString},           /* int16, read */
+
+    {BPMAcqTbtAmpChXWF,     BPMAcqTbtAmpChXWFString},           /* uint32, read */
+    {BPMAcqTbtAmpChYWF,     BPMAcqTbtAmpChYWFString},           /* uint32, read */
+    {BPMAcqTbtAmpChQWF,     BPMAcqTbtAmpChQWFString},           /* uint32, read */
+    {BPMAcqTbtAmpChSUMWF,   BPMAcqTbtAmpChSUMWFString},           /* uint32, read */
+
+    {BPMAcqTbtPosChXWF,     BPMAcqTbtPosChXWFString},           /* uint32, read */
+    {BPMAcqTbtPosChYWF,     BPMAcqTbtPosChYWFString},           /* uint32, read */
+    {BPMAcqTbtPosChQWF,     BPMAcqTbtPosChQWFString},           /* uint32, read */
+    {BPMAcqTbtPosChSUMWF,   BPMAcqTbtPosChSUMWFString},           /* uint32, read */
+
+    {BPMAcqFofbAmpChXWF,    BPMAcqFofbAmpChXWFString},           /* uint32, read */
+    {BPMAcqFofbAmpChYWF,    BPMAcqFofbAmpChYWFString},           /* uint32, read */
+    {BPMAcqFofbAmpChQWF,    BPMAcqFofbAmpChQWFString},           /* uint32, read */
+    {BPMAcqFofbAmpChSUMWF,  BPMAcqFofbAmpChSUMWFString},           /* uint32, read */
+
+    {BPMAcqFofbPosChXWF,    BPMAcqFofbPosChXWFString},           /* uint32, read */
+    {BPMAcqFofbPosChYWF,    BPMAcqFofbPosChYWFString},           /* uint32, read */
+    {BPMAcqFofbPosChQWF,    BPMAcqFofbPosChQWFString},           /* uint32, read */
+    {BPMAcqFofbPosChSUMWF,  BPMAcqFofbPosChSUMWFString}           /* uint32, read */
 
 };
 
