@@ -253,7 +253,7 @@ int bpmConfig(const char *portNumber)
 	pPvt->int32.drvPvt = pPvt;
 	pPvt->int32Array.interfaceType = asynInt32ArrayType;
 	pPvt->int32Array.pinterface  = (void *)&bpmDrvInt32Array;
-	pPvt->int32.drvPvt = pPvt;
+	pPvt->int32Array.drvPvt = pPvt;
 	pPvt->int16Array.interfaceType = asynInt16ArrayType;
 	pPvt->int16Array.pinterface  = (void *)&bpmDrvInt16Array;
 	pPvt->int16Array.drvPvt = pPvt;
@@ -279,6 +279,7 @@ int bpmConfig(const char *portNumber)
 
 	status = pasynInt32ArrayBase->initialize(pPvt->portNumber, &pPvt->int32Array);
 	if (status != asynSuccess) {
+		printf("\n?\n");
 		errlogPrintf("bpmConfig: Can't register int32Array.\n");
 		return -1;
 	}
