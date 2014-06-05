@@ -139,8 +139,6 @@ static long read_wf(waveformRecord *pao)
 			return asynError;
 		
 		pPvt->pasynInt16Array->read(pPvt->asynInt16ArrayPvt, pPvt->pasynUser,val16,(size_t)pao->nelm,&nread);
-		for(i=0;i<10;i++)
-			printf("%hd\n",val16[i]);
 		pao->bptr = (void*)val16;
 	}
 	else{
