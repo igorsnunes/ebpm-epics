@@ -80,7 +80,7 @@ static long init_record_mbbo(mbboRecord *pao)
 	pPvt->pasynDrvUser = (asynDrvUser *)pasynInterface->pinterface;
 	pPvt->asynDrvUserPvt = pasynInterface->drvPvt;
 	
-	if (findDrvInfoMbbo(pao, pasynUser, userParam, 0))
+	findDrvInfoMbbo(pao, pasynUser, userParam, 0);
 	//if (findDrvInfoMbbo(pao, pasynUser, ACQ_ORIGIN, 0))
 
 	return 0;

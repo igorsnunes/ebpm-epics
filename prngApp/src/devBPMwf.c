@@ -120,15 +120,39 @@ static long init_record_wf(waveformRecord *pao)
 	//if (findDrvInfoWf(pao, pasynUser, BPMAcqFofbPosChQWFString, 0))
 	//if (findDrvInfoWf(pao, pasynUser, BPMAcqFofbPosChSUMWFString, 0))
 
-	if (findDrvInfoWf(pao, pasynUser, userParam, 0))
+	findDrvInfoWf(pao, pasynUser, userParam, 0);
 
 	return 0;
 }
 
 static long read_wf(waveformRecord *pao)
 {
+
 	bpmPvt *pPvt = (bpmPvt *)pao->dpvt;
-	pPvt = (bpmPvt *)pPvt->pasynUser->userPvt;
-	pPvt->pasynInt32Array->read(pPvt->asynInt32ArrayPvt, pPvt->pasynUser,&pao->val,(size_t)pao->nelm,NULL);
+	epicsInt16 *val16;
+	epicsInt32 *val32;
+	size_t nread = 0;
+	int i=0;
+	if((pPvt->pasynUser->reason >= BPMAcqAdcChAWF) && (pPvt->pasynUser->reason <= BPMAcqAdcChDWF)){
+		val16 = (epicsInt16*)pao->bptr;
+		if(val16 == NULL)
+			return asynError;
+		
+		pPvt->pasynInt16Array->read(pPvt->asynInt16ArrayPvt, pPvt->pasynUser,val16,(size_t)pao->nelm,&nread);
+		for(i=0;i<10;i++)
+			printf("%hd\n",val16[i]);
+		pao->bptr = (void*)val16;
+	}
+	else{
+		val32 = (epicsInt32*)pao->bptr;
+		if(val32 == NULL)
+			return asynError;
+		pPvt->pasynInt32Array->read(pPvt->asynInt32ArrayPvt, pPvt->pasynUser,val32,(size_t)pao->nelm,&nread);
+
+		pao->bptr = (void*)val32;
+	}
+
+	pao->nord = nread;
+	printf("%d",nread);
 	return 0;
 }

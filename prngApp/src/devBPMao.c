@@ -8,17 +8,19 @@ struct {
 	long num;
 	DEVSUPFUN   report;
 	DEVSUPFUN   init;
-	DEVSUPFUN   init_record;
+	DEVSUPFUN   init_record_ao;
 	DEVSUPFUN   get_ioint_info;
 	DEVSUPFUN   write_ao;
+	DEVSUPFUN   special_linconv;
 
 } devBPMao = {
-    5,
+    6,
     NULL,
     NULL,
     init_record_ao,
     NULL,
-    write_ao
+    write_ao,
+    NULL
 };
 epicsExportAddress(dset,devBPMao);
 
@@ -80,7 +82,7 @@ static long init_record_ao(aoRecord *pao)
 	pPvt->pasynDrvUser = (asynDrvUser *)pasynInterface->pinterface;
 	pPvt->asynDrvUserPvt = pasynInterface->drvPvt;
 	
-	if (findDrvInfoAo(pao, pasynUser, userParam, 0))
+	findDrvInfoAo(pao, pasynUser, userParam, 0);
 	//if (findDrvInfoAo(pao, pasynUser, BPMAcqSamplesString, 0))
 
 	return 0;

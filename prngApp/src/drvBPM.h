@@ -29,6 +29,14 @@
 #define BPMAcqFofbPosChSUMWFString "ACQ_FOFB_POS_CHSUM_WF"
 
 typedef enum {
+	ADC,
+	TBT_AMP,
+	TBT_POS,
+	FOFB_AMP,
+	FOFB_POS,
+	IDLE
+}BPMAcqOriginType;
+typedef enum {
 	BPMBlinkLeds,/*int 32 write*/
 	BPMAcqOrigin,/*int 32 write*/
 	BPMAcqSamples,/*int 32 write*/

@@ -80,7 +80,7 @@ static long init_record_bo(boRecord *pao)
 	pPvt->pasynDrvUser = (asynDrvUser *)pasynInterface->pinterface;
 	pPvt->asynDrvUserPvt = pasynInterface->drvPvt;
 	
-	if (findDrvInfoBo(pao, pasynUser, BPMBLinkLedsString, BPMBlinkLeds))
+	findDrvInfoBo(pao, pasynUser, BPMBLinkLedsString, BPMBlinkLeds);
 
 	return 0;
 }
