@@ -58,3 +58,6 @@ Session.vim
 .netrwhist
 *~
 
+##manual##
+##epics stuff##
+*.d
