@@ -137,7 +137,7 @@ typedef struct {
 	char *bpm_param;/**ipc directory**/
 	int BYTES_READ;/**bytes last read**/
 	epicsInt32 N_SAMPLES;/**number of samples to acquire**/
-	uint32_t *data_buffer;/**data buffer last acquired**/
+	uint32_t *data_buffer[END_CHAN_ID];/**data buffer last acquired**/
 	BPMAcqOriginType ORIGIN;/**data origin**/
 } bpmDrvPvt;
 
@@ -224,7 +224,9 @@ int bpmConfig(const char *portNumber)
 	sprintf(bpm_param,"tcp://10.0.18.35:8888");
 	//sprintf(bpm_param,"ipc:///tmp/bpm/%s",pPvt->portNumber);
 	pPvt->BYTES_READ = 0;
-	pPvt->data_buffer = NULL;
+	int k = 0;
+	for(k = 0;k < END_CHAN_ID;k++)
+		pPvt->data_buffer[k] = NULL;
 	pPvt->ORIGIN = ADC;
 	pPvt->N_SAMPLES = 1000;
 	pPvt->bpm_param = epicsStrDup(bpm_param); 
@@ -430,30 +432,34 @@ static asynStatus int32Write(void *drvPvt, asynUser *pasynUser,epicsInt32 value)
 		}
 	}
 	else if(pasynUser->reason == BPMAcqSamples){
-		if (value <= 1000) 
+		if(value == 1)
+			priv->N_SAMPLES = 2;//FIXME!!
+		else if (value <= 1000) 
 			priv->N_SAMPLES = value;
 		else
 			priv->N_SAMPLES = 1000;
 	}
 	else if(pasynUser->reason == BPMAcqOrigin){
-		if(priv->data_buffer != NULL)
-			free(priv->data_buffer);
 		priv->ORIGIN = value;
+		if(priv->data_buffer[priv->ORIGIN] != NULL){
+			free(priv->data_buffer[priv->ORIGIN]);
+			priv->data_buffer[priv->ORIGIN] = NULL;
+		}
 		uint32_t data_size = (priv->N_SAMPLES)*__acq_chan[(priv->ORIGIN)].sample_size;
-		priv->data_buffer = (uint32_t *) zmalloc (data_size*sizeof (uint8_t));
+		priv->data_buffer[priv->ORIGIN] = (uint32_t *) zmalloc (data_size*sizeof (uint8_t));
 		//memset(data,0,1000);
 		acq_trans_t acq_trans = {.req =   {
 			.num_samples = priv->N_SAMPLES,
 			.chan = priv->ORIGIN,
 			},
 			.block = {
-			.data = priv->data_buffer,
+			.data = priv->data_buffer[priv->ORIGIN],
 			.data_size = data_size,
                         }
                 };
 		bpm_client_err_e err = bpm_get_curve (priv->bpm_client, "BPM0:DEVIO:ACQ", &acq_trans);
 		priv->BYTES_READ = acq_trans.block.bytes_read;
-
+		//printf("\ndata_size=%d\n",data_size);
 	}
 
 	return asynSuccess;
@@ -462,7 +468,7 @@ static asynStatus int32Write(void *drvPvt, asynUser *pasynUser,epicsInt32 value)
 static void copy_data (uint32_t chan, uint32_t *data_acq, uint32_t size, uint32_t nch,epicsInt32 *val32, epicsInt16 *val16)
 {
 	uint32_t i = 0;
-	if ((nch >= 4) || (size == 0))
+	if ((nch >= 4) || (size == 0) || (data_acq == NULL) )
 		return;
 	/* FIXME: Make it more generic */
 	if (chan == 0) {
@@ -497,67 +503,67 @@ static void copy_data (uint32_t chan, uint32_t *data_acq, uint32_t size, uint32_
 static asynStatus int32ArrayRead(void *drvPvt, asynUser *pasynUser,epicsInt32 *value, size_t nelements, size_t *nIn){
 	bpmDrvPvt *priv = (bpmDrvPvt*)drvPvt;
 	if(pasynUser->reason == BPMAcqTbtAmpChXWF){
-		copy_data(TBTAMP_CHAN_ID,priv->data_buffer,priv->BYTES_READ,0,value,NULL);
+		copy_data(TBTAMP_CHAN_ID,priv->data_buffer[TBTAMP_CHAN_ID],priv->BYTES_READ,0,value,NULL);
 		*nIn = (priv->BYTES_READ/TBTAMP_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqTbtAmpChYWF){
-		copy_data(TBTAMP_CHAN_ID,priv->data_buffer,priv->BYTES_READ,1,value,NULL);
+		copy_data(TBTAMP_CHAN_ID,priv->data_buffer[TBTAMP_CHAN_ID],priv->BYTES_READ,1,value,NULL);
 		*nIn = (priv->BYTES_READ/TBTAMP_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqTbtAmpChQWF){
-		copy_data(TBTAMP_CHAN_ID,priv->data_buffer,priv->BYTES_READ,2,value,NULL);
+		copy_data(TBTAMP_CHAN_ID,priv->data_buffer[TBTAMP_CHAN_ID],priv->BYTES_READ,2,value,NULL);
 		*nIn = (priv->BYTES_READ/TBTAMP_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqTbtAmpChSUMWF){
-		copy_data(TBTAMP_CHAN_ID,priv->data_buffer,priv->BYTES_READ,3,value,NULL);
+		copy_data(TBTAMP_CHAN_ID,priv->data_buffer[TBTAMP_CHAN_ID],priv->BYTES_READ,3,value,NULL);
 		*nIn = (priv->BYTES_READ/TBTAMP_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqTbtPosChXWF){
-		copy_data(TBTPOS_CHAN_ID,priv->data_buffer,priv->BYTES_READ,0,value,NULL);
+		copy_data(TBTPOS_CHAN_ID,priv->data_buffer[TBTPOS_CHAN_ID],priv->BYTES_READ,0,value,NULL);
 		*nIn = (priv->BYTES_READ/TBTPOS_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqTbtPosChYWF){
-		copy_data(TBTPOS_CHAN_ID,priv->data_buffer,priv->BYTES_READ,1,value,NULL);
+		copy_data(TBTPOS_CHAN_ID,priv->data_buffer[TBTPOS_CHAN_ID],priv->BYTES_READ,1,value,NULL);
 		*nIn = (priv->BYTES_READ/TBTPOS_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqTbtPosChQWF){
-		copy_data(TBTPOS_CHAN_ID,priv->data_buffer,priv->BYTES_READ,2,value,NULL);
+		copy_data(TBTPOS_CHAN_ID,priv->data_buffer[TBTPOS_CHAN_ID],priv->BYTES_READ,2,value,NULL);
 		*nIn = (priv->BYTES_READ/TBTPOS_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqTbtPosChSUMWF){
-		copy_data(TBTPOS_CHAN_ID,priv->data_buffer,priv->BYTES_READ,3,value,NULL);
+		copy_data(TBTPOS_CHAN_ID,priv->data_buffer[TBTPOS_CHAN_ID],priv->BYTES_READ,3,value,NULL);
 		*nIn = (priv->BYTES_READ/TBTPOS_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqFofbAmpChXWF){
-		copy_data(FOFBAMP_CHAN_ID,priv->data_buffer,priv->BYTES_READ,0,value,NULL);
+		copy_data(FOFBAMP_CHAN_ID,priv->data_buffer[FOFBAMP_CHAN_ID],priv->BYTES_READ,0,value,NULL);
 		*nIn = (priv->BYTES_READ/FOFBAMP_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqFofbAmpChYWF){
-		copy_data(FOFBAMP_CHAN_ID,priv->data_buffer,priv->BYTES_READ,1,value,NULL);
+		copy_data(FOFBAMP_CHAN_ID,priv->data_buffer[FOFBAMP_CHAN_ID],priv->BYTES_READ,1,value,NULL);
 		*nIn = (priv->BYTES_READ/FOFBAMP_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqFofbAmpChQWF){
-		copy_data(FOFBAMP_CHAN_ID,priv->data_buffer,priv->BYTES_READ,2,value,NULL);
+		copy_data(FOFBAMP_CHAN_ID,priv->data_buffer[FOFBAMP_CHAN_ID],priv->BYTES_READ,2,value,NULL);
 		*nIn = (priv->BYTES_READ/FOFBAMP_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqFofbAmpChSUMWF){
-		copy_data(FOFBAMP_CHAN_ID,priv->data_buffer,priv->BYTES_READ,3,value,NULL);
+		copy_data(FOFBAMP_CHAN_ID,priv->data_buffer[FOFBAMP_CHAN_ID],priv->BYTES_READ,3,value,NULL);
 		*nIn = (priv->BYTES_READ/FOFBAMP_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqFofbPosChXWF){
-		copy_data(FOFBPOS_CHAN_ID,priv->data_buffer,priv->BYTES_READ,0,value,NULL);
+		copy_data(FOFBPOS_CHAN_ID,priv->data_buffer[FOFBPOS_CHAN_ID],priv->BYTES_READ,0,value,NULL);
 		*nIn = (priv->BYTES_READ/FOFBPOS_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqFofbPosChYWF){
-		copy_data(FOFBPOS_CHAN_ID,priv->data_buffer,priv->BYTES_READ,1,value,NULL);
+		copy_data(FOFBPOS_CHAN_ID,priv->data_buffer[FOFBPOS_CHAN_ID],priv->BYTES_READ,1,value,NULL);
 		*nIn = (priv->BYTES_READ/FOFBPOS_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqFofbPosChQWF){
-		copy_data(FOFBPOS_CHAN_ID,priv->data_buffer,priv->BYTES_READ,2,value,NULL);
+		copy_data(FOFBPOS_CHAN_ID,priv->data_buffer[FOFBPOS_CHAN_ID],priv->BYTES_READ,2,value,NULL);
 		*nIn = (priv->BYTES_READ/FOFBPOS_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqFofbPosChSUMWF){
-		copy_data(FOFBPOS_CHAN_ID,priv->data_buffer,priv->BYTES_READ,3,value,NULL);
+		copy_data(FOFBPOS_CHAN_ID,priv->data_buffer[FOFBPOS_CHAN_ID],priv->BYTES_READ,3,value,NULL);
 		*nIn = (priv->BYTES_READ/FOFBPOS_SAMPLE_SIZE);
 	}
 
@@ -569,13 +575,13 @@ static asynStatus int16ArrayRead(void *drvPvt, asynUser *pasynUser,epicsInt16 *v
 	bpmDrvPvt *priv = (bpmDrvPvt*)drvPvt;
 
 	if(pasynUser->reason == BPMAcqAdcChAWF)
-		copy_data(ADC_CHAN_ID,priv->data_buffer,priv->BYTES_READ,0,NULL,value);
+		copy_data(ADC_CHAN_ID,priv->data_buffer[ADC_CHAN_ID],priv->BYTES_READ,0,NULL,value);
 	else if(pasynUser->reason == BPMAcqAdcChBWF)
-		copy_data(ADC_CHAN_ID,priv->data_buffer,priv->BYTES_READ,1,NULL,value);
+		copy_data(ADC_CHAN_ID,priv->data_buffer[ADC_CHAN_ID],priv->BYTES_READ,1,NULL,value);
 	else if(pasynUser->reason == BPMAcqAdcChCWF)
-		copy_data(ADC_CHAN_ID,priv->data_buffer,priv->BYTES_READ,2,NULL,value);
+		copy_data(ADC_CHAN_ID,priv->data_buffer[ADC_CHAN_ID],priv->BYTES_READ,2,NULL,value);
 	else if(pasynUser->reason == BPMAcqAdcChDWF)
-		copy_data(ADC_CHAN_ID,priv->data_buffer,priv->BYTES_READ,3,NULL,value);
+		copy_data(ADC_CHAN_ID,priv->data_buffer[ADC_CHAN_ID],priv->BYTES_READ,3,NULL,value);
 	*nIn = (priv->BYTES_READ/ADC_SAMPLE_SIZE);
 
 	return asynSuccess;
