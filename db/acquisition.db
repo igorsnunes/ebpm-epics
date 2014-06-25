@@ -1,9 +1,33 @@
-record(ao,"BPM:ACQ:Samples"){
+record(ao,"BPM:ACQ:ADC:samples"){
 	field(DTYP,"BPMao")
 	field(DESC,"Number of samples for an acquisition")
 	field(SCAN,"Passive")
-	field(OUT,"@asyn($(P),0,0)ACQ_SAMPLES")
- }
+	field(OUT,"@asyn($(P),0,0)ACQ_SAMPLES_ADC")
+}
+record(ao,"BPM:ACQ:FOFB_AMP:samples"){
+	field(DTYP,"BPMao")
+	field(DESC,"Number of samples for an acquisition")
+	field(SCAN,"Passive")
+	field(OUT,"@asyn($(P),0,0)ACQ_SAMPLES_FOFB_AMP")
+}
+record(ao,"BPM:ACQ:TBT_AMP:samples"){
+	field(DTYP,"BPMao")
+	field(DESC,"Number of samples for an acquisition")
+	field(SCAN,"Passive")
+	field(OUT,"@asyn($(P),0,0)ACQ_SAMPLES_TBT_AMP")
+}
+record(ao,"BPM:ACQ:FOFB_POS:samples"){
+	field(DTYP,"BPMao")
+	field(DESC,"Number of samples for an acquisition")
+	field(SCAN,"Passive")
+	field(OUT,"@asyn($(P),0,0)ACQ_SAMPLES_FOFB_POS")
+}
+record(ao,"BPM:ACQ:TBT_POS:samples"){
+	field(DTYP,"BPMao")
+	field(DESC,"Number of samples for an acquisition")
+	field(SCAN,"Passive")
+	field(OUT,"@asyn($(P),0,0)ACQ_SAMPLES_TBT_POS")
+}
 record(mbbo, "BPM:ACQ:dataOrigin"){
 	field(DTYP, "BPMmbbo")
 	field(DESC, "Acquisition's origin")

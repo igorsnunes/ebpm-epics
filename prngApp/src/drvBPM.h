@@ -1,6 +1,11 @@
 #define BPMBLinkLedsString "BLINK_LEDS"
 #define BPMAcqOriginString "ACQ_ORIGIN"
-#define BPMAcqSamplesString "ACQ_SAMPLES"
+
+#define BPMAcqSamplesStringADC "ACQ_SAMPLES_ADC"
+#define BPMAcqSamplesStringFOFBAMP "ACQ_SAMPLES_FOFB_AMP"
+#define BPMAcqSamplesStringTBTAMP "ACQ_SAMPLES_TBT_AMP"
+#define BPMAcqSamplesStringFOFBPOS "ACQ_SAMPLES_FOFB_POS"
+#define BPMAcqSamplesStringTBTPOS "ACQ_SAMPLES_TBT_POS"
 
 #define BPMAcqAdcChAWFString "ACQ_ADC_CHA_WF"
 #define BPMAcqAdcChBWFString "ACQ_ADC_CHB_WF"
@@ -39,7 +44,11 @@ typedef enum {
 typedef enum {
 	BPMBlinkLeds,/*int 32 write*/
 	BPMAcqOrigin,/*int 32 write*/
-	BPMAcqSamples,/*int 32 write*/
+	BPMAcqSamplesADC,/*int 32 write*/
+	BPMAcqSamplesFOFBAMP,/*int 32 write*/
+	BPMAcqSamplesTBTAMP,/*int 32 write*/
+	BPMAcqSamplesFOFBPOS,/*int 32 write*/
+	BPMAcqSamplesTBTPOS,/*int 32 write*/
 	BPMAcqAdcChAWF,/*int 16 array read*/
 	BPMAcqAdcChBWF,/*int 16 array read*/
 	BPMAcqAdcChCWF,/*int 16 array read*/

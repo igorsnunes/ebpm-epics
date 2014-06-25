@@ -67,7 +67,7 @@
 
 #include <inttypes.h>
 
-#define MAX_BPM_COMMANDS 23
+#define MAX_BPM_COMMANDS 27
 
 typedef struct {
 
@@ -90,8 +90,12 @@ static BPMCommandStruct BPMCommands[MAX_BPM_COMMANDS] = {
 
     {BPMAcqOrigin,          BPMAcqOriginString},           /* int32, write */
 
-    {BPMAcqSamples,          BPMAcqSamplesString},           /* int32, write */
+    {BPMAcqSamplesADC,          BPMAcqSamplesStringADC},           /* int32, write */
 
+    {BPMAcqSamplesFOFBAMP,          BPMAcqSamplesStringFOFBAMP},           /* int32, write */
+    {BPMAcqSamplesTBTAMP,          BPMAcqSamplesStringTBTAMP},           /* int32, write */
+    {BPMAcqSamplesFOFBPOS,          BPMAcqSamplesStringFOFBPOS},           /* int32, write */
+    {BPMAcqSamplesTBTPOS,          BPMAcqSamplesStringTBTPOS},           /* int32, write */
     {BPMAcqAdcChAWF,        BPMAcqAdcChAWFString},           /* int16, read */
     {BPMAcqAdcChBWF,        BPMAcqAdcChBWFString},           /* int16, read */
     {BPMAcqAdcChCWF,        BPMAcqAdcChCWFString},           /* int16, read */
@@ -136,7 +140,7 @@ typedef struct {
 	char *portNumber;/**portNumber, or bpm Number for acess**/
 	char *bpm_param;/**ipc directory**/
 	int BYTES_READ;/**bytes last read**/
-	epicsInt32 N_SAMPLES;/**number of samples to acquire**/
+	epicsInt32 N_SAMPLES[END_CHAN_ID];/**number of samples to acquire**/
 	uint32_t *data_buffer[END_CHAN_ID];/**data buffer last acquired**/
 	BPMAcqOriginType ORIGIN;/**data origin**/
 } bpmDrvPvt;
@@ -225,10 +229,11 @@ int bpmConfig(const char *portNumber)
 	//sprintf(bpm_param,"ipc:///tmp/bpm/%s",pPvt->portNumber);
 	pPvt->BYTES_READ = 0;
 	int k = 0;
-	for(k = 0;k < END_CHAN_ID;k++)
+	for(k = 0;k < END_CHAN_ID;k++){
 		pPvt->data_buffer[k] = NULL;
+		pPvt->N_SAMPLES[k] = 1000;
+	}
 	pPvt->ORIGIN = ADC;
-	pPvt->N_SAMPLES = 1000;
 	pPvt->bpm_param = epicsStrDup(bpm_param); 
 	bpm_client_t *bpm_client;
 	pPvt->bpm_client = bpm_client = NULL;
@@ -431,13 +436,37 @@ static asynStatus int32Write(void *drvPvt, asynUser *pasynUser,epicsInt32 value)
 			printf("\nblinked\n");
 		}
 	}
-	else if(pasynUser->reason == BPMAcqSamples){
+	else if(pasynUser->reason == BPMAcqSamplesADC){
 		if(value == 1)
-			priv->N_SAMPLES = 2;//FIXME!!
+			priv->N_SAMPLES[ADC_CHAN_ID] = 2;//FIXME!!
 		else if (value <= 1000) 
-			priv->N_SAMPLES = value;
+			priv->N_SAMPLES[ADC_CHAN_ID] = value;
 		else
-			priv->N_SAMPLES = 1000;
+			priv->N_SAMPLES[ADC_CHAN_ID] = 1000;
+	}
+	else if(pasynUser->reason == BPMAcqSamplesTBTAMP){
+		if (value <= 1000) 
+			priv->N_SAMPLES[TBTAMP_CHAN_ID] = value;
+		else
+			priv->N_SAMPLES[TBTAMP_CHAN_ID] = 1000;
+	}
+	else if(pasynUser->reason == BPMAcqSamplesTBTPOS){
+		if (value <= 1000) 
+			priv->N_SAMPLES[TBTPOS_CHAN_ID] = value;
+		else
+			priv->N_SAMPLES[TBTPOS_CHAN_ID] = 1000;
+	}
+	else if(pasynUser->reason == BPMAcqSamplesFOFBAMP){
+		if (value <= 1000) 
+			priv->N_SAMPLES[FOFBAMP_CHAN_ID] = value;
+		else
+			priv->N_SAMPLES[FOFBAMP_CHAN_ID] = 1000;
+	}
+	else if(pasynUser->reason == BPMAcqSamplesFOFBPOS){
+		if (value <= 1000) 
+			priv->N_SAMPLES[FOFBPOS_CHAN_ID] = value;
+		else
+			priv->N_SAMPLES[FOFBPOS_CHAN_ID] = 1000;
 	}
 	else if(pasynUser->reason == BPMAcqOrigin){
 		priv->ORIGIN = value;
@@ -445,11 +474,11 @@ static asynStatus int32Write(void *drvPvt, asynUser *pasynUser,epicsInt32 value)
 			free(priv->data_buffer[priv->ORIGIN]);
 			priv->data_buffer[priv->ORIGIN] = NULL;
 		}
-		uint32_t data_size = (priv->N_SAMPLES)*__acq_chan[(priv->ORIGIN)].sample_size;
+		uint32_t data_size = (priv->N_SAMPLES[priv->ORIGIN])*__acq_chan[(priv->ORIGIN)].sample_size;
 		priv->data_buffer[priv->ORIGIN] = (uint32_t *) zmalloc (data_size*sizeof (uint8_t));
 		//memset(data,0,1000);
 		acq_trans_t acq_trans = {.req =   {
-			.num_samples = priv->N_SAMPLES,
+			.num_samples = priv->N_SAMPLES[priv->ORIGIN],
 			.chan = priv->ORIGIN,
 			},
 			.block = {
