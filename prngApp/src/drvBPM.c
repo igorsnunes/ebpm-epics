@@ -142,7 +142,7 @@ typedef struct {
 	int BYTES_READ;/**bytes last read**/
 	epicsInt32 N_SAMPLES[END_CHAN_ID];/**number of samples to acquire**/
 	uint32_t *data_buffer[END_CHAN_ID];/**data buffer last acquired**/
-	BPMAcqOriginType ORIGIN;/**data origin**/
+	int ORIGIN;/**data origin**/
 } bpmDrvPvt;
 
 /* These functions are in public interfaces */
@@ -233,7 +233,7 @@ int bpmConfig(const char *portNumber)
 		pPvt->data_buffer[k] = NULL;
 		pPvt->N_SAMPLES[k] = 1000;
 	}
-	pPvt->ORIGIN = ADC;
+	pPvt->ORIGIN = ADC_CHAN_ID;
 	pPvt->bpm_param = epicsStrDup(bpm_param); 
 	bpm_client_t *bpm_client;
 	pPvt->bpm_client = bpm_client = NULL;
@@ -476,7 +476,6 @@ static asynStatus int32Write(void *drvPvt, asynUser *pasynUser,epicsInt32 value)
 		}
 		uint32_t data_size = (priv->N_SAMPLES[priv->ORIGIN])*__acq_chan[(priv->ORIGIN)].sample_size;
 		priv->data_buffer[priv->ORIGIN] = (uint32_t *) zmalloc (data_size*sizeof (uint8_t));
-		//memset(data,0,1000);
 		acq_trans_t acq_trans = {.req =   {
 			.num_samples = priv->N_SAMPLES[priv->ORIGIN],
 			.chan = priv->ORIGIN,
