@@ -32,6 +32,7 @@ prng_SRCS += devBPMbo.c
 prng_SRCS += devBPMmbbo.c
 prng_SRCS += devBPMwf.c
 prng_SRCS += devBPMao.c
+prng_SRCS += devBPMai.c
 prng_SRCS += commonDev.c
 # Build the main IOC entry point on workstation OSs.
 prng_SRCS_DEFAULT += prngMain.cpp

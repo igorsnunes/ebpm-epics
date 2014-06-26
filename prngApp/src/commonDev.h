@@ -7,6 +7,7 @@
 #include <mbboRecord.h>
 #include <waveformRecord.h>
 #include <aoRecord.h>
+#include <aiRecord.h>
 #include "drvBPM.h"
 #include <string.h>
 #include <ctype.h>
@@ -55,3 +56,4 @@ long findDrvInfoWf(waveformRecord *ao, asynUser *pasynUser, char *drvInfoString,
 long findDrvInfoAo(aoRecord *ao, asynUser *pasynUser, char *drvInfoString, int command);
 long findDrvInfoMbbo(mbboRecord *mbbo, asynUser *pasynUser, char *drvInfoString, int command);
 long findDrvInfoBo(boRecord *bo, asynUser *pasynUser, char *drvInfoString, int command);
+long findDrvInfoAi(aiRecord *ao, asynUser *pasynUser, char *drvInfoString, int command);

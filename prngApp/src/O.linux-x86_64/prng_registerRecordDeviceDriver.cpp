@@ -143,6 +143,7 @@ epicsShareExtern dset *pvar_dset_asynAiInt32;
 epicsShareExtern dset *pvar_dset_asynAiInt32Average;
 epicsShareExtern dset *pvar_dset_asynAiFloat64;
 epicsShareExtern dset *pvar_dset_asynAiFloat64Average;
+epicsShareExtern dset *pvar_dset_devBPMai;
 epicsShareExtern dset *pvar_dset_devAoSoft;
 epicsShareExtern dset *pvar_dset_devAoSoftRaw;
 epicsShareExtern dset *pvar_dset_devAoSoftCallback;
@@ -219,7 +220,7 @@ epicsShareExtern dset *pvar_dset_asynFloat64TimeSeries;
 epicsShareExtern dset *pvar_dset_devBPMwf;
 epicsShareExtern dset *pvar_dset_asynRecordDevice;
 
-static const char * const deviceSupportNames[85] = {
+static const char * const deviceSupportNames[86] = {
     "devAaiSoft",
     "devAaoSoft",
     "devAiSoft",
@@ -230,6 +231,7 @@ static const char * const deviceSupportNames[85] = {
     "asynAiInt32Average",
     "asynAiFloat64",
     "asynAiFloat64Average",
+    "devBPMai",
     "devAoSoft",
     "devAoSoftRaw",
     "devAoSoftCallback",
@@ -307,7 +309,7 @@ static const char * const deviceSupportNames[85] = {
     "asynRecordDevice"
 };
 
-static const dset * const devsl[85] = {
+static const dset * const devsl[86] = {
     pvar_dset_devAaiSoft,
     pvar_dset_devAaoSoft,
     pvar_dset_devAiSoft,
@@ -318,6 +320,7 @@ static const dset * const devsl[85] = {
     pvar_dset_asynAiInt32Average,
     pvar_dset_asynAiFloat64,
     pvar_dset_asynAiFloat64Average,
+    pvar_dset_devBPMai,
     pvar_dset_devAoSoft,
     pvar_dset_devAoSoftRaw,
     pvar_dset_devAoSoftCallback,
@@ -438,7 +441,7 @@ int prng_registerRecordDeviceDriver(DBBASE *pbase)
     }
 
     registerRecordTypes(pbase, 29, recordTypeNames, rtl);
-    registerDevices(pbase, 85, deviceSupportNames, devsl);
+    registerDevices(pbase, 86, deviceSupportNames, devsl);
     registerDrivers(pbase, 1, driverSupportNames, drvsl);
     (*pvar_func_asSub)();
     (*pvar_func_asynRegister)();

@@ -8,7 +8,7 @@ record(ai,"BPM:DSP:kx:get"){
 	field(DTYP,"BPMai")
 	field(DESC,"get kx")
 	field(SCAN,"Passive")
-	field(OUT,"@asyn($(P),0,0)DSP_KX")
+	field(INP,"@asyn($(P),0,0)DSP_KX")
 }
 record(ao,"BPM:DSP:ky:set"){
 	field(DTYP,"BPMao")
@@ -20,7 +20,7 @@ record(ai,"BPM:DSP:ky:get"){
 	field(DTYP,"BPMai")
 	field(DESC,"get ky")
 	field(SCAN,"Passive")
-	field(OUT,"@asyn($(P),0,0)DSP_KY")
+	field(INP,"@asyn($(P),0,0)DSP_KY")
 }
 record(ao,"BPM:DSP:ksum:set"){
 	field(DTYP,"BPMao")
@@ -32,7 +32,7 @@ record(ai,"BPM:DSP:ksum:get"){
 	field(DTYP,"BPMai")
 	field(DESC,"get ksum")
 	field(SCAN,"Passive")
-	field(OUT,"@asyn($(P),0,0)DSP_KSUM")
+	field(INP,"@asyn($(P),0,0)DSP_KSUM")
 }
 
 record(ao,"BPM:DSP:TBT:dsthreshold:set"){
@@ -45,7 +45,7 @@ record(ai,"BPM:DSP:TBT:dsthreshold:get"){
 	field(DTYP,"BPMai")
 	field(DESC,"get delta sigma threshold for tbt")
 	field(SCAN,"Passive")
-	field(OUT,"@asyn($(P),0,0)DSP_KX")
+	field(INP,"@asyn($(P),0,0)DSP_KX")
 }
 
 record(ao,"BPM:DSP:FOFB:dsthreshold:set"){
@@ -58,6 +58,6 @@ record(ai,"BPM:DSP:FOFB:dsthreshold:get"){
 	field(DTYP,"BPMai")
 	field(DESC,"get delta sigma threshold for FOFB")
 	field(SCAN,"Passive")
-	field(OUT,"@asyn($(P),0,0)DSP_KX")
+	field(INP,"@asyn($(P),0,0)DSP_KX")
 }
 
