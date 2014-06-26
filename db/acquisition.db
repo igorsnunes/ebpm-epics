@@ -28,22 +28,54 @@ record(ao,"BPM:ACQ:TBT_POS:samples"){
 	field(SCAN,"Passive")
 	field(OUT,"@asyn($(P),0,0)ACQ_SAMPLES_TBT_POS")
 }
-record(mbbo, "BPM:ACQ:dataOrigin"){
+record(mbbo, "BPM:ACQ:ADC:trig"){
 	field(DTYP, "BPMmbbo")
 	field(DESC, "Acquisition's origin")
 	field(SCAN,"Passive")
-	field(OUT,"@asyn($(P),0,0)ACQ_ORIGIN")
-	field(NOBT,"3")
+	field(OUT,"@asyn($(P),0,0)ACQ_TRIG_ADC")
+	field(NOBT,"1")
 	field(ZRVL,"0")
-	field(ONVL,"1")
-	field(TWVL,"2")
-	field(THVL,"3")
-	field(FRVL,"4")
-	field(ZRST,"ADC")
-	field(ONST,"TBT_AMP")
-	field(TWST,"TBT_POS")
-	field(THST,"FOFB_AMP")
-	field(FRST,"FOFB_POS")
+	field(ZRST,"Acquire")
+}
+
+record(mbbo, "BPM:ACQ:TBTAMP:trig"){
+	field(DTYP, "BPMmbbo")
+	field(DESC, "Acquisition's origin")
+	field(SCAN,"Passive")
+	field(OUT,"@asyn($(P),0,0)ACQ_TRIG_TBT_AMP")
+	field(NOBT,"1")
+	field(ZRVL,"0")
+	field(ZRST,"Acquire")
+}
+
+record(mbbo, "BPM:ACQ:TBTPOS:trig"){
+	field(DTYP, "BPMmbbo")
+	field(DESC, "Acquisition's origin")
+	field(SCAN,"Passive")
+	field(OUT,"@asyn($(P),0,0)ACQ_TRIG_TBT_POS")
+	field(NOBT,"1")
+	field(ZRVL,"0")
+	field(ZRST,"Acquire")
+}
+
+record(mbbo, "BPM:ACQ:FOFBAMP:trig"){
+	field(DTYP, "BPMmbbo")
+	field(DESC, "Acquisition's origin")
+	field(SCAN,"Passive")
+	field(OUT,"@asyn($(P),0,0)ACQ_TRIG_FOFB_AMP")
+	field(NOBT,"1")
+	field(ZRVL,"0")
+	field(ZRST,"Acquire")
+}
+
+record(mbbo, "BPM:ACQ:FOFBPOS:trig"){
+	field(DTYP, "BPMmbbo")
+	field(DESC, "Acquisition's origin")
+	field(SCAN,"Passive")
+	field(OUT,"@asyn($(P),0,0)ACQ_TRIG_FOFB_POS")
+	field(NOBT,"1")
+	field(ZRVL,"0")
+	field(ZRST,"Acquire")
 }
 
 record(waveform,"BPM:ACQ:ADC:ChannelA:waveform"){ 

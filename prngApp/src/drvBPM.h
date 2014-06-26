@@ -7,6 +7,12 @@
 #define BPMAcqSamplesStringFOFBPOS "ACQ_SAMPLES_FOFB_POS"
 #define BPMAcqSamplesStringTBTPOS "ACQ_SAMPLES_TBT_POS"
 
+#define BPMAcqTrigStringADC "ACQ_TRIG_ADC"
+#define BPMAcqTrigStringFOFBAMP "ACQ_TRIG_FOFB_AMP"
+#define BPMAcqTrigStringTBTAMP "ACQ_TRIG_TBT_AMP"
+#define BPMAcqTrigStringFOFBPOS "ACQ_TRIG_FOFB_POS"
+#define BPMAcqTrigStringTBTPOS "ACQ_TRIG_TBT_POS"
+
 #define BPMAcqAdcChAWFString "ACQ_ADC_CHA_WF"
 #define BPMAcqAdcChBWFString "ACQ_ADC_CHB_WF"
 #define BPMAcqAdcChCWFString "ACQ_ADC_CHC_WF"
@@ -42,6 +48,11 @@ typedef enum {
 	BPMAcqSamplesTBTPOS,/*int 32 write*/
 	BPMAcqSamplesFOFBAMP,/*int 32 write*/
 	BPMAcqSamplesFOFBPOS,/*int 32 write*/
+	BPMAcqTrigADC,/*int 32 write*/
+	BPMAcqTrigTBTAMP,/*int 32 write*/
+	BPMAcqTrigTBTPOS,/*int 32 write*/
+	BPMAcqTrigFOFBAMP,/*int 32 write*/
+	BPMAcqTrigFOFBPOS,/*int 32 write*/
 	BPMAcqAdcChAWF,/*int 16 array read*/
 	BPMAcqAdcChBWF,/*int 16 array read*/
 	BPMAcqAdcChCWF,/*int 16 array read*/

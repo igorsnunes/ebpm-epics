@@ -67,7 +67,7 @@
 
 #include <inttypes.h>
 
-#define MAX_BPM_COMMANDS 27
+#define MAX_BPM_COMMANDS 32
 
 typedef struct {
 
@@ -91,11 +91,20 @@ static BPMCommandStruct BPMCommands[MAX_BPM_COMMANDS] = {
     {BPMAcqOrigin,          BPMAcqOriginString},           /* int32, write */
 
     {BPMAcqSamplesADC,          BPMAcqSamplesStringADC},           /* int32, write */
-
     {BPMAcqSamplesFOFBAMP,          BPMAcqSamplesStringFOFBAMP},           /* int32, write */
     {BPMAcqSamplesTBTAMP,          BPMAcqSamplesStringTBTAMP},           /* int32, write */
     {BPMAcqSamplesFOFBPOS,          BPMAcqSamplesStringFOFBPOS},           /* int32, write */
     {BPMAcqSamplesTBTPOS,          BPMAcqSamplesStringTBTPOS},           /* int32, write */
+
+   
+    {BPMAcqTrigADC,          BPMAcqTrigStringADC},           /* int32, write */
+    {BPMAcqTrigFOFBAMP,          BPMAcqTrigStringFOFBAMP},           /* int32, write */
+    {BPMAcqTrigTBTAMP,          BPMAcqTrigStringTBTAMP},           /* int32, write */
+    {BPMAcqTrigFOFBPOS,          BPMAcqTrigStringFOFBPOS},           /* int32, write */
+    {BPMAcqTrigTBTPOS,          BPMAcqTrigStringTBTPOS},           /* int32, write */
+
+
+
     {BPMAcqAdcChAWF,        BPMAcqAdcChAWFString},           /* int16, read */
     {BPMAcqAdcChBWF,        BPMAcqAdcChBWFString},           /* int16, read */
     {BPMAcqAdcChCWF,        BPMAcqAdcChCWFString},           /* int16, read */
@@ -424,6 +433,26 @@ acq_chan_t __acq_chan[END_CHAN_ID] = { [0] = {.chan = ADC_CHAN_ID, .sample_size 
                                      [3] = {.chan = FOFBAMP_CHAN_ID, .sample_size = FOFBAMP_SAMPLE_SIZE},
                                      [4] = {.chan = FOFBPOS_CHAN_ID, .sample_size = FOFBPOS_SAMPLE_SIZE} };
 
+static bpm_client_err_e get_curve(int chan, bpmDrvPvt *priv){ 
+	if(priv->data_buffer[chan] != NULL){
+		free(priv->data_buffer[chan]);
+		priv->data_buffer[chan] = NULL;
+	}
+	uint32_t data_size = (priv->N_SAMPLES[chan])*__acq_chan[chan].sample_size;
+	priv->data_buffer[chan] = (uint32_t *) zmalloc (data_size*sizeof (uint8_t));
+	acq_trans_t acq_trans = {.req =   {
+		.num_samples = priv->N_SAMPLES[chan],
+		.chan = chan,
+		},
+		.block = {
+		.data = priv->data_buffer[chan],
+		.data_size = data_size,
+                }
+        };
+	bpm_client_err_e err = bpm_get_curve (priv->bpm_client, "BPM0:DEVIO:ACQ", &acq_trans);
+	priv->BYTES_READ = acq_trans.block.bytes_read;
+	return err;
+}
 
 static asynStatus int32Write(void *drvPvt, asynUser *pasynUser,epicsInt32 value)
 	{
@@ -468,28 +497,25 @@ static asynStatus int32Write(void *drvPvt, asynUser *pasynUser,epicsInt32 value)
 		else
 			priv->N_SAMPLES[FOFBPOS_CHAN_ID] = 1000;
 	}
-	else if(pasynUser->reason == BPMAcqOrigin){
-		priv->ORIGIN = value;
-		if(priv->data_buffer[priv->ORIGIN] != NULL){
-			free(priv->data_buffer[priv->ORIGIN]);
-			priv->data_buffer[priv->ORIGIN] = NULL;
-		}
-		uint32_t data_size = (priv->N_SAMPLES[priv->ORIGIN])*__acq_chan[(priv->ORIGIN)].sample_size;
-		priv->data_buffer[priv->ORIGIN] = (uint32_t *) zmalloc (data_size*sizeof (uint8_t));
-		acq_trans_t acq_trans = {.req =   {
-			.num_samples = priv->N_SAMPLES[priv->ORIGIN],
-			.chan = priv->ORIGIN,
-			},
-			.block = {
-			.data = priv->data_buffer[priv->ORIGIN],
-			.data_size = data_size,
-                        }
-                };
-		bpm_client_err_e err = bpm_get_curve (priv->bpm_client, "BPM0:DEVIO:ACQ", &acq_trans);
-		priv->BYTES_READ = acq_trans.block.bytes_read;
-		//printf("\ndata_size=%d\n",data_size);
+	else if(pasynUser->reason == BPMAcqTrigADC){
+		get_curve(ADC_CHAN_ID,priv);
 	}
+	else if(pasynUser->reason == BPMAcqTrigTBTAMP){
 
+		get_curve(TBTAMP_CHAN_ID, priv);
+	}
+	else if(pasynUser->reason == BPMAcqTrigTBTPOS){
+
+		get_curve(TBTPOS_CHAN_ID,priv);
+	}
+	else if(pasynUser->reason == BPMAcqTrigFOFBAMP){
+
+		get_curve(FOFBAMP_CHAN_ID,priv);
+	}
+	else if(pasynUser->reason == BPMAcqTrigFOFBPOS){
+
+		get_curve(FOFBPOS_CHAN_ID,priv);
+	}
 	return asynSuccess;
 }
 
