@@ -60,8 +60,8 @@
 #include <epicsExport.h>
 
 /*Libraries from ZeroMQ and majordome*/
-#include "/usr/local/lib/bpm_client.h"
-#include "/usr/local/lib/bpm_client_codes.h"
+#include "bpm_client.h"
+#include "bpm_client_codes.h"
 
 
 
@@ -421,10 +421,10 @@ static asynStatus int32Read(void *drvPvt, asynUser *pasynUser,
 		bpm_get_ksum (priv->bpm_client,"BPM0:DEVIO:DSP",(uint32_t*)value);		
 	}
 	else if(pasynUser->reason == BPMDspTbtDst){
-		bpm_get_ds_tbt_thres (bpm_client, "BPM0:DEVIO:DSP",(uint32_t*)value);
+		bpm_get_ds_tbt_thres (priv->bpm_client, "BPM0:DEVIO:DSP",(uint32_t*)value);
 	}
 	else if(pasynUser->reason == BPMDspFofbDst){
-		bpm_get_ds_fofb_thres (bpm_client, "BPM0:DEVIO:DSP",(uint32_t*)value);
+		bpm_get_ds_fofb_thres (priv->bpm_client, "BPM0:DEVIO:DSP",(uint32_t*)value);
 	}
 	return asynSuccess;
 }
@@ -549,10 +549,10 @@ static asynStatus int32Write(void *drvPvt, asynUser *pasynUser,epicsInt32 value)
 		bpm_set_ksum (priv->bpm_client,"BPM0:DEVIO:DSP",(uint32_t)value);		
 	}
 	else if(pasynUser->reason == BPMDspTbtDst){
-		bpm_set_ds_tbt_thres (bpm_client, "BPM0:DEVIO:DSP",(uint32_t)value);
+		bpm_set_ds_tbt_thres (priv->bpm_client, "BPM0:DEVIO:DSP",(uint32_t)value);
 	}
 	else if(pasynUser->reason == BPMDspFofbDst){
-		bpm_set_ds_fofb_thres (bpm_client, "BPM0:DEVIO:DSP",(uint32_t)value);
+		bpm_set_ds_fofb_thres (priv->bpm_client, "BPM0:DEVIO:DSP",(uint32_t)value);
 	}
 
 	return asynSuccess;
@@ -648,7 +648,7 @@ static asynStatus int32ArrayRead(void *drvPvt, asynUser *pasynUser,epicsInt32 *v
 		*nIn = (priv->BYTES_READ[FOFBPOS_CHAN_ID]/FOFBPOS_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqFofbPosChYWF){
-		copy_data(FOFBPOS_CHAN_ID,priv->data_buffer[FOFBPOS_CHAN_ID],priv->BYTES_READ,1,value,NULL);
+		copy_data(FOFBPOS_CHAN_ID,priv->data_buffer[FOFBPOS_CHAN_ID],priv->BYTES_READ[FOFBPOS_CHAN_ID],1,value,NULL);
 		*nIn = (priv->BYTES_READ[FOFBPOS_CHAN_ID]/FOFBPOS_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqFofbPosChQWF){
