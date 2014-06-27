@@ -60,14 +60,14 @@
 #include <epicsExport.h>
 
 /*Libraries from ZeroMQ and majordome*/
-#include "/usr/local/lib/bpm_client.h"
-#include "/usr/local/lib/bpm_client_codes.h"
+#include "bpm_client.h"
+#include "bpm_client_codes.h"
 
 
 
 #include <inttypes.h>
 
-#define MAX_BPM_COMMANDS 32
+#define MAX_BPM_COMMANDS 37
 
 typedef struct {
 
@@ -128,8 +128,17 @@ static BPMCommandStruct BPMCommands[MAX_BPM_COMMANDS] = {
     {BPMAcqFofbPosChXWF,    BPMAcqFofbPosChXWFString},           /* uint32, read */
     {BPMAcqFofbPosChYWF,    BPMAcqFofbPosChYWFString},           /* uint32, read */
     {BPMAcqFofbPosChQWF,    BPMAcqFofbPosChQWFString},           /* uint32, read */
-    {BPMAcqFofbPosChSUMWF,  BPMAcqFofbPosChSUMWFString}           /* uint32, read */
+    {BPMAcqFofbPosChSUMWF,  BPMAcqFofbPosChSUMWFString},           /* uint32, read */
 
+    {BPMDspKx,  BPMDspKxString},           /* uint32, read,write */
+
+    {BPMDspKy,  BPMDspKyString},           /* uint32, read,write */
+
+    {BPMDspKSum,  BPMDspKSumString},           /* uint32, read,write */
+
+    {BPMDspTbtDst, BPMDspTbtDstString},           /* uint32, read,write */
+
+    {BPMDspFofbDst, BPMDspFofbDstString}           /* uint32, read,write */
 };
 
 
@@ -401,9 +410,23 @@ static asynStatus bpmDisconnect(void *drvPvt, asynUser *pasynUser)
 static asynStatus int32Read(void *drvPvt, asynUser *pasynUser,
                             epicsInt32 *value)
 {
-    bpmDrvPvt *priv = (bpmDrvPvt*)drvPvt;
-    *value=0;
-    return asynSuccess;
+	bpmDrvPvt *priv = (bpmDrvPvt*)drvPvt;
+	if(pasynUser->reason == BPMDspKx){
+		bpm_get_kx (priv->bpm_client,"BPM0:DEVIO:DSP",(uint32_t*)value);		
+	} 
+	else if(pasynUser->reason == BPMDspKy){
+		bpm_get_ky (priv->bpm_client,"BPM0:DEVIO:DSP",(uint32_t*)value);		
+	}
+	else if(pasynUser->reason == BPMDspKSum){
+		bpm_get_ksum (priv->bpm_client,"BPM0:DEVIO:DSP",(uint32_t*)value);		
+	}
+	else if(pasynUser->reason == BPMDspTbtDst){
+		bpm_get_ds_tbt_thres (priv->bpm_client, "BPM0:DEVIO:DSP",(uint32_t*)value);
+	}
+	else if(pasynUser->reason == BPMDspFofbDst){
+		bpm_get_ds_fofb_thres (priv->bpm_client, "BPM0:DEVIO:DSP",(uint32_t*)value);
+	}
+	return asynSuccess;
 }
 
 static void blink_leds(bpm_client_t *client, char *variable_zmq)
@@ -516,6 +539,22 @@ static asynStatus int32Write(void *drvPvt, asynUser *pasynUser,epicsInt32 value)
 
 		get_curve(FOFBPOS_CHAN_ID,priv);
 	}
+	else if(pasynUser->reason == BPMDspKx){
+		bpm_set_kx (priv->bpm_client,"BPM0:DEVIO:DSP",(uint32_t)value);		
+	} 
+	else if(pasynUser->reason == BPMDspKy){
+		bpm_set_ky (priv->bpm_client,"BPM0:DEVIO:DSP",(uint32_t)value);		
+	}
+	else if(pasynUser->reason == BPMDspKSum){
+		bpm_set_ksum (priv->bpm_client,"BPM0:DEVIO:DSP",(uint32_t)value);		
+	}
+	else if(pasynUser->reason == BPMDspTbtDst){
+		bpm_set_ds_tbt_thres (priv->bpm_client, "BPM0:DEVIO:DSP",(uint32_t)value);
+	}
+	else if(pasynUser->reason == BPMDspFofbDst){
+		bpm_set_ds_fofb_thres (priv->bpm_client, "BPM0:DEVIO:DSP",(uint32_t)value);
+	}
+
 	return asynSuccess;
 }
 
@@ -609,7 +648,7 @@ static asynStatus int32ArrayRead(void *drvPvt, asynUser *pasynUser,epicsInt32 *v
 		*nIn = (priv->BYTES_READ[FOFBPOS_CHAN_ID]/FOFBPOS_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqFofbPosChYWF){
-		copy_data(FOFBPOS_CHAN_ID,priv->data_buffer[FOFBPOS_CHAN_ID],priv->BYTES_READ,1,value,NULL);
+		copy_data(FOFBPOS_CHAN_ID,priv->data_buffer[FOFBPOS_CHAN_ID],priv->BYTES_READ[FOFBPOS_CHAN_ID],1,value,NULL);
 		*nIn = (priv->BYTES_READ[FOFBPOS_CHAN_ID]/FOFBPOS_SAMPLE_SIZE);
 	}
 	else if(pasynUser->reason == BPMAcqFofbPosChQWF){

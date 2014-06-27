@@ -39,6 +39,14 @@ long findDrvInfoAo(aoRecord *ao, asynUser *pasynUser, char *drvInfoString, int c
 
 }
 
+long findDrvInfoAi(aiRecord *ao, asynUser *pasynUser, char *drvInfoString, int command)
+
+{
+	bpmPvt *pPvt = (bpmPvt *)ao->dpvt;
+ 	return findDrvInfo(pPvt,pasynUser,drvInfoString,command);
+
+}
+
 long findDrvInfoWf(waveformRecord *ao, asynUser *pasynUser, char *drvInfoString, int command)
 
 {

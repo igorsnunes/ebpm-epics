@@ -39,6 +39,14 @@
 #define BPMAcqFofbPosChQWFString "ACQ_FOFB_POS_CHQ_WF"
 #define BPMAcqFofbPosChSUMWFString "ACQ_FOFB_POS_CHSUM_WF"
 
+#define BPMDspKxString "DSP_KX"
+#define BPMDspKyString "DSP_KY"
+#define BPMDspKSumString "DSP_KSUM"
+
+#define BPMDspTbtDstString "DSP_TBT_DST"
+#define BPMDspFofbDstString "DSP_FOFB_DST"
+
+
 
 typedef enum {
 	BPMBlinkLeds,/*int 32 write*/
@@ -73,6 +81,11 @@ typedef enum {
 	BPMAcqFofbPosChYWF,/*uint 32 array read*/
 	BPMAcqFofbPosChQWF,/*uint 32 array read*/
 	BPMAcqFofbPosChSUMWF,/*uint 32 array read*/
+	BPMDspKx,/*int 32 write read*/
+	BPMDspKy,/*int 32 write read*/
+	BPMDspKSum,/*int 32 write read */
+	BPMDspTbtDst,/*int 32 write read*/
+	BPMDspFofbDst,/*int 32 write read*/
 	BPMLastCommand
 }BPMCommand;
 	
