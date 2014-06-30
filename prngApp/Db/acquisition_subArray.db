@@ -1,0 +1,29 @@
+record(subArray, "BPM:ACQ:ADC:ChannelA:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, ""BPM:ACQ:ADC:ChannelA:waveform)
+  field(NELM, "BPM:ACQ:ADC:samples.VAL")
+  field(MALM, "3000000")
+  field(FTVL, "LONG") 
+}
+
+record(subArray, "BPM:ACQ:ADC:ChannelB:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:ADC:ChannelB:waveform")
+  field(NELM, "BPM:ACQ:ADC:samples.VAL")
+  field(MALM, "3000000")
+  field(FTVL, "LONG") 
+}
+record(subArray, "BPM:ACQ:ADC:ChannelC:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:ADC:ChannelC:waveform")
+  field(NELM, "BPM:ACQ:ADC:samples.VAL")
+  field(MALM, "3000000")
+  field(FTVL, "LONG") 
+}
+record(subArray, "BPM:ACQ:ADC:ChannelD:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:ADC:ChannelD:waveform")
+  field(NELM, "BPM:ACQ:ADC:samples.VAL")
+  field(MALM, "3000000")
+  field(FTVL, "LONG") 
+}
