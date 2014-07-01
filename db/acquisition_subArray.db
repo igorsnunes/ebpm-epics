@@ -1,0 +1,168 @@
+record(subArray, "BPM:ACQ:ADC:ChannelA:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:ADC:ChannelA:waveform")
+  field(NELM, "BPM:ACQ:ADC:samples.RVAL")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+  field(INDX, "0")
+}
+
+record(subArray, "BPM:ACQ:ADC:ChannelB:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:ADC:ChannelB:waveform")
+  field(NELM, "BPM:ACQ:ADC:samples.VAL")
+  field(MALM, "1000")
+  field(INDX, "0")
+  field(FTVL, "LONG") 
+}
+record(subArray, "BPM:ACQ:ADC:ChannelC:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:ADC:ChannelC:waveform")
+  field(NELM, "BPM:ACQ:ADC:samples.VAL")
+  field(INDX, "0")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+}
+record(subArray, "BPM:ACQ:ADC:ChannelD:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:ADC:ChannelD:waveform")
+  field(NELM, "BPM:ACQ:ADC:samples.VAL")
+  field(INDX, "0")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+}
+record(subArray, "BPM:ACQ:TBT:A:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:TBT_AMP:ChannelX:waveform")
+  field(INDX, "0")
+  field(NELM, "BPM:ACQ:ADC:samples.VAL")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+}
+
+record(subArray, "BPM:ACQ:TBT:B:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:TBT_AMP:ChannelY:waveform")
+  field(NELM, "BPM:ACQ:TBT_AMP:samples.VAL")
+  field(INDX, "0")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+}
+record(subArray, "BPM:ACQ:TBT:C:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:TBT_AMP:ChannelQ:waveform")
+  field(NELM, "BPM:ACQ:TBT_AMP:samples.VAL")
+  field(INDX, "0")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+}
+record(subArray, "BPM:ACQ:TBT:D:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:TBT_AMP:ChannelSUM:waveform")
+  field(NELM, "BPM:ACQ:TBT_AMP:samples.VAL")
+  field(INDX, "0")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+}
+
+
+record(subArray, "BPM:ACQ:TBT:X:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:TBT_POS:ChannelX:waveform")
+  field(INDX, "0")
+  field(NELM, "BPM:ACQ:TBT_POS:samples.VAL")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+}
+record(subArray, "BPM:ACQ:TBT:Y:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:TBT_POS:ChannelY:waveform")
+  field(NELM, "BPM:ACQ:TBT_POS:samples.VAL")
+  field(INDX, "0")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+}
+record(subArray, "BPM:ACQ:TBT:Q:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:TBT_POS:ChannelQ:waveform")
+  field(NELM, "BPM:ACQ:TBT_POS:samples.VAL")
+  field(INDX, "0")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+}
+record(subArray, "BPM:ACQ:TBT:SUM:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:TBT_POS:ChannelSUM:waveform")
+  field(NELM, "BPM:ACQ:TBT_POS:samples.VAL")
+  field(INDX, "0")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+}
+
+
+record(subArray, "BPM:ACQ:FOFB:A:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:FOFB_AMP:ChannelX:waveform")
+  field(INDX, "0")
+  field(NELM, "BPM:ACQ:FOFB_AMP:samples.VAL")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+}
+record(subArray, "BPM:ACQ:FOFB:B:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:FOFB_AMP:ChannelY:waveform")
+  field(NELM, "BPM:ACQ:FOFB_AMP:samples.VAL")
+  field(INDX, "0")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+}
+record(subArray, "BPM:ACQ:FOFB:C:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:FOFB_AMP:ChannelQ:waveform")
+  field(NELM, "BPM:ACQ:FOFB_AMP:samples.VAL")
+  field(INDX, "0")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+}
+record(subArray, "BPM:ACQ:FOFB:D:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:FOFB_AMP:ChannelSUM:waveform")
+  field(NELM, "BPM:ACQ:FOFB_AMP:samples.VAL")
+  field(INDX, "0")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+}
+
+
+record(subArray, "BPM:ACQ:FOFB:X:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:FOFB_POS:ChannelX:waveform")
+  field(INDX, "0")
+  field(NELM, "BPM:ACQ:FOFB_POS:samples.VAL")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+}
+record(subArray, "BPM:ACQ:FOFB:Y:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:FOFB_POS:ChannelY:waveform")
+  field(NELM, "BPM:ACQ:FOFB_POS:samples.VAL")
+  field(INDX, "0")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+}
+record(subArray, "BPM:ACQ:FOFB:Q:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:FOFB_POS:ChannelQ:waveform")
+  field(NELM, "BPM:ACQ:FOFB_POS:samples.VAL")
+  field(INDX, "0")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+}
+record(subArray, "BPM:ACQ:FOFB:SUM:subArray") {
+  field(DTYP, "Soft Channel")
+  field(INP, "BPM:ACQ:FOFB_POS:ChannelSUM:waveform")
+  field(NELM, "BPM:ACQ:FOFB_POS:samples.VAL")
+  field(INDX, "0")
+  field(MALM, "1000")
+  field(FTVL, "LONG") 
+}
