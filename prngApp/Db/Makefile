@@ -13,6 +13,7 @@ include $(TOP)/configure/CONFIG
 DB += leds_test.db
 DB += acquisition.db
 DB += dsp.db
+DB += acquisition_subArray.db
 #----------------------------------------------------
 # If <anyname>.db template is not named <anyname>*.template add
 # <anyname>_template = <templatename>

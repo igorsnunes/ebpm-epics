@@ -12,6 +12,7 @@ dbLoadDatabase "dbd/prng.dbd"
 prng_registerRecordDeviceDriver pdbbase
 
 ## Load record instances
+dbLoadRecords("acquisition_subArray.db")
 dbLoadRecords("db/acquisition.db","P=0")
 dbLoadRecords("db/leds_test.db","P=0")
 bpmConfig("0")
