@@ -540,7 +540,14 @@ static asynStatus int32Write(void *drvPvt, asynUser *pasynUser,epicsInt32 value)
 		get_curve(FOFBPOS_CHAN_ID,priv);
 	}
 	else if(pasynUser->reason == BPMDspKx){
-		bpm_set_kx (priv->bpm_client,"BPM0:DEVIO:DSP",(uint32_t)value);		
+		uint32_t debug;
+		bpm_get_kx (priv->bpm_client,"BPM0:DEVIO:DSP",&debug);	
+		printf("bpm_get %d\n",debug);		
+
+		printf("debug 1, set value=%d\n",value);
+		bpm_set_kx (priv->bpm_client,"BPM0:DEVIO:DSP",(uint32_t)value);	
+		bpm_get_kx (priv->bpm_client,"BPM0:DEVIO:DSP",&debug);	
+		printf("bpm_get %d\n",debug);		
 	} 
 	else if(pasynUser->reason == BPMDspKy){
 		bpm_set_ky (priv->bpm_client,"BPM0:DEVIO:DSP",(uint32_t)value);		

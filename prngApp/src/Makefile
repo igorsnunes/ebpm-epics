@@ -11,7 +11,7 @@ include $(TOP)/configure/CONFIG
 
 PROD_IOC = prng
 DBD += prng.dbd
-prng_INCLUDES += -I/usr/include/libclient
+prng_INCLUDES += -I/usr/local/lib
 
 # prng.dbd will be created and installed
 
