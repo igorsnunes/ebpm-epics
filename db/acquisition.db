@@ -177,10 +177,10 @@ record(aSub,"BPM:ACQ:TBT:X:waveform"){
 	
 
 	field(SNAM,"calcX")
-	field(INPA,"BPM:ACQ:TBT:A:waveform")
-	field(INPB,"BPM:ACQ:TBT:B:waveform")
-	field(INPC,"BPM:ACQ:TBT:C:waveform")
-	field(INPD,"BPM:ACQ:TBT:D:waveform")
+	field(INPA,"BPM:ACQ:TBT:A:waveform.VAL PP NMS")
+	field(INPB,"BPM:ACQ:TBT:B:waveform.VAL PP NMS")
+	field(INPC,"BPM:ACQ:TBT:C:waveform.VAL PP NMS")
+	field(INPD,"BPM:ACQ:TBT:D:waveform.VAL PP NMS")
 	field(INPE,"BPM:DSP:kx:get")
 	field(SCAN, "Passive")
 	field(FLNK,"BPM:ACQ:TBT:Y:waveform")

@@ -571,7 +571,7 @@ static void copy_data (uint32_t chan, uint32_t *data_acq, uint32_t size, uint32_
 	if ((nch >= 4) || (size == 0) || (data_acq == NULL) )
 		return;
 	/* FIXME: Make it more generic */
-	if (chan == 0) {
+	if (chan == ADC_CHAN_ID) {
 		if(val16 == NULL){
 			printf("null error\n");
 			return;
