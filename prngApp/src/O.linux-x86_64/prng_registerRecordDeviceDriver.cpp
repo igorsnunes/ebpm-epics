@@ -430,7 +430,7 @@ static struct iocshVarDef vardefs[] = {
 
 int prng_registerRecordDeviceDriver(DBBASE *pbase)
 {
-    const char *bldTop = "/home/igor/git-repos/ebpm-epics";
+    const char *bldTop = "/home/igor/git/ebpm-epics";
     const char *envTop = getenv("TOP");
 
     if (envTop && strcmp(envTop, bldTop)) {

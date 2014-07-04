@@ -1,5 +1,5 @@
 epicsEnvSet("ARCH","linux-x86_64")
 epicsEnvSet("IOC","iocprng")
-epicsEnvSet("TOP","/home/igor/git-repos/ebpm-epics")
+epicsEnvSet("TOP","/home/igor/git/ebpm-epics")
 epicsEnvSet("ASYN","/home/igor/asyn/asyn4-21")
 epicsEnvSet("EPICS_BASE","/home/igor/epics/base")
