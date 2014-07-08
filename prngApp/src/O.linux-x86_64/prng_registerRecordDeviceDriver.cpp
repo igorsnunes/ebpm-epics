@@ -413,6 +413,7 @@ epicsShareExtern void (*pvar_func_asynRegister)(void);
 epicsShareExtern void (*pvar_func_asynInterposeFlushRegister)(void);
 epicsShareExtern void (*pvar_func_asynInterposeEosRegister)(void);
 epicsShareExtern void (*pvar_func_bpmRegister)(void);
+epicsShareExtern void (*pvar_func_register_func_initPosCalc)(void);
 epicsShareExtern void (*pvar_func_register_func_calcX)(void);
 epicsShareExtern void (*pvar_func_register_func_calcY)(void);
 epicsShareExtern void (*pvar_func_register_func_calcQ)(void);
@@ -452,6 +453,7 @@ int prng_registerRecordDeviceDriver(DBBASE *pbase)
     (*pvar_func_asynInterposeFlushRegister)();
     (*pvar_func_asynInterposeEosRegister)();
     (*pvar_func_bpmRegister)();
+    (*pvar_func_register_func_initPosCalc)();
     (*pvar_func_register_func_calcX)();
     (*pvar_func_register_func_calcY)();
     (*pvar_func_register_func_calcQ)();

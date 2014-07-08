@@ -1,3 +1,4 @@
+function(initPosCalc)
 function(calcX)
 function(calcY)
 function(calcQ)

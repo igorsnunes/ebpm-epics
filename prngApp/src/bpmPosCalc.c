@@ -9,15 +9,19 @@
 #include "alarm.h"
 
 
+long initPosCalc(aSubRecord *pgsub){
+	printf("SubRoutines init\n");
+	//pgsub->vala = (long*) malloc(sizeof(long)*1000);
+	memset((long*)(pgsub->vala), 0, (pgsub->nova)*sizeof(long));
+	pgsub->neva = 0;
+	return 0;
+}
 long calcX(aSubRecord *pgsub)
 {
 	int i;
 
-	int32_t * buff = (int32_t *)pgsub->vala;
-	for(i = 0; i < pgsub->nova; i++)
-	{
-		buff[i] = 0;
-	}
+	int32_t * buff = (int32_t*)malloc(sizeof(int32_t)*pgsub->nova);
+	memset((int32_t*)(buff), 0, (pgsub->nova)*sizeof(int32_t));
 
         int32_t  *a = (int32_t *)(pgsub->a);
 
@@ -30,17 +34,22 @@ long calcX(aSubRecord *pgsub)
         int32_t  *d = (int32_t *)(pgsub->d);
 
 
-        long  *e = (long *)(pgsub->e);
+        int32_t  *e = (int32_t *)(pgsub->e);
 
        for (i=0; i < pgsub->nova; i++)
 	{
 		if(a[i] == 0 && b[i] == 0 && c[i] == 0 && d[i] == 0)
 			buff[i] = 0;
-                else{
-			buff[i] = ((a[i]+d[i]-b[i]-c[i])/(a[i]+b[i]+c[i]+d[i]));
-			//printf("%d %d %d %d %d\n",a[i],b[i],c[i],d[i],buff[i]); 
-        	}
+		else{
+			buff[i] = e[0]*( b[i] + c[i] - a[i] - d[i] );
+			buff[i] = buff[i]/(a[i]+d[i]+b[i]+c[i]);
+			}
 	}
+       memcpy((int32_t*)pgsub->vala,(int32_t*)buff,sizeof(int32_t)*pgsub->nova);
+
+       free(buff);
+       pgsub->neva = (int32_t) 1000;
+
 	return 0;
 }
 
@@ -48,14 +57,10 @@ long calcY(aSubRecord *pgsub)
 {
 	int i;
 
-	int32_t * buff = (int32_t *)pgsub->vala;
-	for(i = 0; i < pgsub->nova; i++)
-	{
-		buff[i] = 0;
-	}
+	int32_t * buff = (int32_t*)malloc(sizeof(int32_t)*pgsub->nova);
+	memset((int32_t*)(buff), 0, (pgsub->nova)*sizeof(int32_t));
 
         int32_t  *a = (int32_t *)(pgsub->a);
-
 
         int32_t  *b = (int32_t *)(pgsub->b);
 
@@ -68,31 +73,32 @@ long calcY(aSubRecord *pgsub)
 
         int32_t  *e = (int32_t *)(pgsub->e);
 
-       
-        for (i=0; i < pgsub->nova; i++)
+       for (i=0; i < pgsub->nova; i++)
 	{
 		if(a[i] == 0 && b[i] == 0 && c[i] == 0 && d[i] == 0)
 			buff[i] = 0;
+		else{
+			buff[i] = e[0]*( a[i] + b[i] - c[i] - d[i] );
+			buff[i] = buff[i]/(a[i]+d[i]+b[i]+c[i]);
+			}
+	}
+       memcpy((int32_t*)pgsub->vala,(int32_t*)buff,sizeof(int32_t)*pgsub->nova);
 
-		else
-			//printf("%lu %lu %lu %lu %lu\n",((long)*(e[0])),((long)*(a[i])),((long)*(b[i])),((long)*(c[i])),((long)*(d[i])));
-                	buff[i] = (a[i] + b[i] - c[i] - d[i]) / (a[i] +d[i] + b[i] + c[i]);
-        }
+       free(buff);
+       pgsub->neva = (int32_t) 1000;
+
 	return 0;
+
 }
 
 long calcQ(aSubRecord *pgsub)
 {
 	int i;
 
-	int32_t * buff = (int32_t *)pgsub->vala;
-	for(i = 0; i < pgsub->nova; i++)
-	{
-		buff[i] = 0;
-	}
+	int32_t * buff = (int32_t*)malloc(sizeof(int32_t)*pgsub->nova);
+	memset((int32_t*)(buff), 0, (pgsub->nova)*sizeof(int32_t));
 
         int32_t  *a = (int32_t *)(pgsub->a);
-
 
         int32_t  *b = (int32_t *)(pgsub->b);
 
@@ -105,14 +111,22 @@ long calcQ(aSubRecord *pgsub)
 
         int32_t  *e = (int32_t *)(pgsub->e);
 
-        for (i=0; i < pgsub->nova; i++)
+       for (i=0; i < pgsub->nova; i++)
 	{
 		if(a[i] == 0 && b[i] == 0 && c[i] == 0 && d[i] == 0)
 			buff[i] = 0;
-		else
-                	buff[i] = (a[i]+c[i]-b[i]-d[i]) / (a[i]+d[i]+b[i]+c[i]);
-        }
+		else{
+			buff[i] = e[0]*( a[i] + c[i] - b[i] - d[i] );
+			buff[i] = buff[i]/(a[i]+d[i]+b[i]+c[i]);
+			}
+	}
+       memcpy((int32_t*)pgsub->vala,(int32_t*)buff,sizeof(int32_t)*pgsub->nova);
+
+       free(buff);
+       pgsub->neva = (int32_t) 1000;
+
 	return 0;
+
 }
 
 
@@ -120,14 +134,10 @@ long calcSUM(aSubRecord *pgsub)
 {
 	int i;
 
-	int32_t * buff = (int32_t *)pgsub->vala;
-	for(i = 0; i < pgsub->nova; i++)
-	{
-		buff[i] = 0;
-	}
+	int32_t * buff = (int32_t*)malloc(sizeof(int32_t)*pgsub->nova);
+	memset((int32_t*)(buff), 0, (pgsub->nova)*sizeof(int32_t));
 
         int32_t  *a = (int32_t *)(pgsub->a);
-
 
         int32_t  *b = (int32_t *)(pgsub->b);
 
@@ -140,18 +150,23 @@ long calcSUM(aSubRecord *pgsub)
 
         int32_t  *e = (int32_t *)(pgsub->e);
 
-        for (i=0; i < pgsub->nova; i++)
+       for (i=0; i < pgsub->nova; i++)
 	{
-                buff[i] = a[i] + d[i] + b[i] + c[i];
-        }
-	for(i=0; i < 10; i++){
-		//int32_t aux = (int32_t)pgsub->vala[i];
-		printf("%d\n",buff[i]);
+		if(a[i] == 0 && b[i] == 0 && c[i] == 0 && d[i] == 0)
+			buff[i] = 0;
+		else{
+			buff[i] = (a[i]+d[i]+b[i]+c[i]);
+			}
 	}
+       memcpy((int32_t*)pgsub->vala,(int32_t*)buff,sizeof(int32_t)*pgsub->nova);
+
+       free(buff);
+       pgsub->neva = (int32_t) 1000;
+
 	return 0;
 }
 
-
+epicsRegisterFunction(initPosCalc);
 epicsRegisterFunction(calcX);
 epicsRegisterFunction(calcY);
 epicsRegisterFunction(calcQ);
