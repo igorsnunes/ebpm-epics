@@ -41,7 +41,9 @@ long calcX(aSubRecord *pgsub)
 		if(a[i] == 0 && b[i] == 0 && c[i] == 0 && d[i] == 0)
 			buff[i] = 0;
 		else{
-			buff[i] = e[0]*( b[i] + c[i] - a[i] - d[i] );
+			buff[i] = b[i] - a[i];
+			buff[i] = buff[i] + c[i] - d[i];
+			buff[i] = e[0]*buff[i];
 			buff[i] = buff[i]/(a[i]+d[i]+b[i]+c[i]);
 			}
 	}
@@ -78,7 +80,9 @@ long calcY(aSubRecord *pgsub)
 		if(a[i] == 0 && b[i] == 0 && c[i] == 0 && d[i] == 0)
 			buff[i] = 0;
 		else{
-			buff[i] = e[0]*( a[i] + b[i] - c[i] - d[i] );
+			buff[i] = a[i] - c[i];
+			buff[i] = buff[i] + b[i] - d[i];
+			buff[i] = e[0]*buff[i];
 			buff[i] = buff[i]/(a[i]+d[i]+b[i]+c[i]);
 			}
 	}
@@ -116,7 +120,9 @@ long calcQ(aSubRecord *pgsub)
 		if(a[i] == 0 && b[i] == 0 && c[i] == 0 && d[i] == 0)
 			buff[i] = 0;
 		else{
-			buff[i] = e[0]*( a[i] + c[i] - b[i] - d[i] );
+			buff[i] = a[i] - b[i];
+			buff[i] = buff[i] + c[i] - d[i];
+			buff[i] = e[0]*buff[i];
 			buff[i] = buff[i]/(a[i]+d[i]+b[i]+c[i]);
 			}
 	}
@@ -155,7 +161,7 @@ long calcSUM(aSubRecord *pgsub)
 		if(a[i] == 0 && b[i] == 0 && c[i] == 0 && d[i] == 0)
 			buff[i] = 0;
 		else{
-			buff[i] = (a[i]+d[i]+b[i]+c[i]);
+			buff[i] = e[0]*(a[i]+d[i]+b[i]+c[i]);
 			}
 	}
        memcpy((int32_t*)pgsub->vala,(int32_t*)buff,sizeof(int32_t)*pgsub->nova);
