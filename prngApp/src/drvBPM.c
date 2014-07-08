@@ -540,7 +540,14 @@ static asynStatus int32Write(void *drvPvt, asynUser *pasynUser,epicsInt32 value)
 		get_curve(FOFBPOS_CHAN_ID,priv);
 	}
 	else if(pasynUser->reason == BPMDspKx){
-		bpm_set_kx (priv->bpm_client,"BPM0:DEVIO:DSP",(uint32_t)value);		
+		uint32_t debug;
+		bpm_get_kx (priv->bpm_client,"BPM0:DEVIO:DSP",&debug);	
+		printf("bpm_get %d\n",debug);		
+
+		printf("debug 1, set value=%d\n",value);
+		bpm_set_kx (priv->bpm_client,"BPM0:DEVIO:DSP",(uint32_t)value);	
+		bpm_get_kx (priv->bpm_client,"BPM0:DEVIO:DSP",&debug);	
+		printf("bpm_get %d\n",debug);		
 	} 
 	else if(pasynUser->reason == BPMDspKy){
 		bpm_set_ky (priv->bpm_client,"BPM0:DEVIO:DSP",(uint32_t)value);		
@@ -564,7 +571,7 @@ static void copy_data (uint32_t chan, uint32_t *data_acq, uint32_t size, uint32_
 	if ((nch >= 4) || (size == 0) || (data_acq == NULL) )
 		return;
 	/* FIXME: Make it more generic */
-	if (chan == 0) {
+	if (chan == ADC_CHAN_ID) {
 		if(val16 == NULL){
 			printf("null error\n");
 			return;

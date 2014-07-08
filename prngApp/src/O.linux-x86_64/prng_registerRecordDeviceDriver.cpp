@@ -413,6 +413,11 @@ epicsShareExtern void (*pvar_func_asynRegister)(void);
 epicsShareExtern void (*pvar_func_asynInterposeFlushRegister)(void);
 epicsShareExtern void (*pvar_func_asynInterposeEosRegister)(void);
 epicsShareExtern void (*pvar_func_bpmRegister)(void);
+epicsShareExtern void (*pvar_func_register_func_initPosCalc)(void);
+epicsShareExtern void (*pvar_func_register_func_calcX)(void);
+epicsShareExtern void (*pvar_func_register_func_calcY)(void);
+epicsShareExtern void (*pvar_func_register_func_calcQ)(void);
+epicsShareExtern void (*pvar_func_register_func_calcSUM)(void);
 
 epicsShareExtern int *pvar_int_asCaDebug;
 epicsShareExtern int *pvar_int_dbRecordsOnceOnly;
@@ -426,7 +431,7 @@ static struct iocshVarDef vardefs[] = {
 
 int prng_registerRecordDeviceDriver(DBBASE *pbase)
 {
-    const char *bldTop = "/home/igor/git-repos/ebpm-epics";
+    const char *bldTop = "/home/igor/git/ebpm-epics";
     const char *envTop = getenv("TOP");
 
     if (envTop && strcmp(envTop, bldTop)) {
@@ -448,6 +453,11 @@ int prng_registerRecordDeviceDriver(DBBASE *pbase)
     (*pvar_func_asynInterposeFlushRegister)();
     (*pvar_func_asynInterposeEosRegister)();
     (*pvar_func_bpmRegister)();
+    (*pvar_func_register_func_initPosCalc)();
+    (*pvar_func_register_func_calcX)();
+    (*pvar_func_register_func_calcY)();
+    (*pvar_func_register_func_calcQ)();
+    (*pvar_func_register_func_calcSUM)();
     iocshRegisterVariable(vardefs);
     return 0;
 }

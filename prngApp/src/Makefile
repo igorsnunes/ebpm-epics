@@ -17,7 +17,7 @@ prng_INCLUDES += -I/usr/include/libclient
 
 # prng.dbd will be made up from these files:
 prng_DBD += base.dbd
-
+prng_DBD += bpmPosCalc.dbd
 prng_DBD += prngdev.dbd
 # Include dbd files from all support applications:
 #prng_DBD += xxx.dbd
@@ -34,6 +34,7 @@ prng_SRCS += devBPMwf.c
 prng_SRCS += devBPMao.c
 prng_SRCS += devBPMai.c
 prng_SRCS += commonDev.c
+prng_SRCS += bpmPosCalc.c
 # Build the main IOC entry point on workstation OSs.
 prng_SRCS_DEFAULT += prngMain.cpp
 prng_SRCS_vxWorks += -nil-
