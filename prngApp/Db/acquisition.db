@@ -156,10 +156,10 @@ record(waveform,"BPM:ACQ:TBT:D:waveform"){
 	field(INP,"@asyn($(P),0,0)ACQ_TBT_AMP_CHSUM_WF")
 	field(NELM,"1000")
 	field(FTVL,"LONG")
-	field(FLNK,"BPM:ACQ:TBT:X:waveform")
+	field(FLNK,"BPM:CALC:TBT:X")
 }
 
-record(aSub,"BPM:ACQ:TBT:X:waveform"){
+record(aSub,"BPM:CALC:TBT:X"){
 	field(DESC, "Channel X TBT POS acquisition")
 	field(FTA,"LONG")
 	field(NOA,"1000")
@@ -174,7 +174,7 @@ record(aSub,"BPM:ACQ:TBT:X:waveform"){
 
 	field(FTVA,"LONG")
 	field(NOVA,"1000")
-	
+	field(OUTA,"BPM:ACQ:TBT:X:waveform PP NMS")
 
 	field(SNAM,"calcX")
 	field(INAM,"initPosCalc")
@@ -185,10 +185,10 @@ record(aSub,"BPM:ACQ:TBT:X:waveform"){
 	field(INPD,"BPM:ACQ:TBT:D:waveform.VAL PP NMS")
 	field(INPE,"BPM:DSP:kx:get")
 	field(SCAN, "Passive")
-	field(FLNK,"BPM:ACQ:TBT:Y:waveform")
+	field(FLNK,"BPM:CALC:TBT:Y")
 }
 
-record(aSub,"BPM:ACQ:TBT:Y:waveform"){
+record(aSub,"BPM:CALC:TBT:Y"){
 	field(DESC, "Channel Y TBT POS acquisition")
 	field(FTA,"LONG")
 	field(NOA,"1000")
@@ -203,7 +203,7 @@ record(aSub,"BPM:ACQ:TBT:Y:waveform"){
 
 	field(FTVA,"LONG")
 	field(NOVA,"1000")
-	
+	field(OUTA,"BPM:ACQ:TBT:Y:waveform PP NMS")
 
 	field(SNAM,"calcY")
 	field(INAM,"initPosCalc")
@@ -214,10 +214,10 @@ record(aSub,"BPM:ACQ:TBT:Y:waveform"){
 	field(INPD,"BPM:ACQ:TBT:D:waveform.VAL PP NMS")
 	field(INPE,"BPM:DSP:ky:get")
 	field(SCAN, "Passive")
-	field(FLNK,"BPM:ACQ:TBT:Q:waveform")
+	field(FLNK,"BPM:CALC:TBT:Q")
 }
 
-record(aSub,"BPM:ACQ:TBT:Q:waveform"){
+record(aSub,"BPM:CALC:TBT:Q"){
 	field(DESC, "Channel Q TBT POS acquisition")
 	field(FTA,"LONG")
 	field(NOA,"1000")
@@ -232,7 +232,7 @@ record(aSub,"BPM:ACQ:TBT:Q:waveform"){
 
 	field(FTVA,"LONG")
 	field(NOVA,"1000")
-	
+	field(OUTA,"BPM:ACQ:TBT:Q:waveform PP NMS")
 
 	field(SNAM,"calcQ")
 	field(INAM,"initPosCalc")
@@ -243,10 +243,10 @@ record(aSub,"BPM:ACQ:TBT:Q:waveform"){
 	field(INPD,"BPM:ACQ:TBT:D:waveform.VAL PP NMS")
 	field(INPE,"BPM:DSP:kx:get")
 	field(SCAN, "Passive")
-	field(FLNK,"BPM:ACQ:TBT:SUM:waveform")
+	field(FLNK,"BPM:CALC:TBT:SUM")
 }
 
-record(aSub,"BPM:ACQ:TBT:SUM:waveform"){
+record(aSub,"BPM:CALC:TBT:SUM"){
 	field(DESC, "Channel X TBT POS acquisition")
 	field(FTA,"LONG")
 	field(NOA,"1000")
@@ -261,7 +261,7 @@ record(aSub,"BPM:ACQ:TBT:SUM:waveform"){
 
 	field(FTVA,"LONG")
 	field(NOVA,"1000")
-	
+	field(OUTA,"BPM:ACQ:TBT:SUM:waveform PP NMS")
 
 	field(SNAM,"calcSUM")
 	field(INAM,"initPosCalc")
@@ -309,47 +309,187 @@ record(waveform,"BPM:ACQ:FOFB:D:waveform"){
 	field(DTYP,"BPMwf")
 	field(DESC, "Channel SUM FOFB AMP acquisition")
 	field(SCAN, "Passive")
-	field(FLNK,BPM:ACQ:FOFB:X:waveform)
+	field(FLNK,BPM:CALC:FOFB:X)
 	field(INP,"@asyn($(P),0,0)ACQ_FOFB_AMP_CHSUM_WF")
 	field(NELM,"1000")
 	field(FTVL,"LONG")
 }
 
+record(aSub,"BPM:CALC:FOFB:X"){
+	field(DESC, "Channel X FOFB POS acquisition")
+	field(FTA,"LONG")
+	field(NOA,"1000")
+	field(FTB,"LONG")
+	field(NOB,"1000")
+	field(FTC,"LONG")
+	field(NOC,"1000")
+	field(FTD,"LONG")
+	field(NOD,"1000")
+	field(FTE,"LONG")
+	field(NOE,"1")
+
+	field(FTVA,"LONG")
+	field(NOVA,"1000")
+	field(OUTA,"BPM:ACQ:FOFB:X:waveform PP NMS")
+
+	field(SNAM,"calcX")
+	field(INAM,"initPosCalc")
+
+	field(INPA,"BPM:ACQ:FOFB:A:waveform.VAL PP NMS")
+	field(INPB,"BPM:ACQ:FOFB:B:waveform.VAL PP NMS")
+	field(INPC,"BPM:ACQ:FOFB:C:waveform.VAL PP NMS")
+	field(INPD,"BPM:ACQ:FOFB:D:waveform.VAL PP NMS")
+	field(INPE,"BPM:DSP:kx:get")
+	field(SCAN, "Passive")
+	field(FLNK,"BPM:CALC:FOFB:Y")
+}
+
+record(aSub,"BPM:CALC:FOFB:Y"){
+	field(DESC, "Channel Y FOFB POS acquisition")
+	field(FTA,"LONG")
+	field(NOA,"1000")
+	field(FTB,"LONG")
+	field(NOB,"1000")
+	field(FTC,"LONG")
+	field(NOC,"1000")
+	field(FTD,"LONG")
+	field(NOD,"1000")
+	field(FTE,"LONG")
+	field(NOE,"1")
+
+	field(FTVA,"LONG")
+	field(NOVA,"1000")
+	field(OUTA,"BPM:ACQ:FOFB:Y:waveform PP NMS")
+
+	field(SNAM,"calcY")
+	field(INAM,"initPosCalc")
+
+	field(INPA,"BPM:ACQ:FOFB:A:waveform.VAL PP NMS")
+	field(INPB,"BPM:ACQ:FOFB:B:waveform.VAL PP NMS")
+	field(INPC,"BPM:ACQ:FOFB:C:waveform.VAL PP NMS")
+	field(INPD,"BPM:ACQ:FOFB:D:waveform.VAL PP NMS")
+	field(INPE,"BPM:DSP:ky:get")
+	field(SCAN, "Passive")
+	field(FLNK,"BPM:CALC:FOFB:Q")
+}
+
+record(aSub,"BPM:CALC:FOFB:Q"){
+	field(DESC, "Channel Q FOFB POS acquisition")
+	field(FTA,"LONG")
+	field(NOA,"1000")
+	field(FTB,"LONG")
+	field(NOB,"1000")
+	field(FTC,"LONG")
+	field(NOC,"1000")
+	field(FTD,"LONG")
+	field(NOD,"1000")
+	field(FTE,"LONG")
+	field(NOE,"1")
+
+	field(FTVA,"LONG")
+	field(NOVA,"1000")
+	field(OUTA,"BPM:ACQ:FOFB:Q:waveform PP NMS")
+
+	field(SNAM,"calcQ")
+	field(INAM,"initPosCalc")
+
+	field(INPA,"BPM:ACQ:FOFB:A:waveform.VAL PP NMS")
+	field(INPB,"BPM:ACQ:FOFB:B:waveform.VAL PP NMS")
+	field(INPC,"BPM:ACQ:FOFB:C:waveform.VAL PP NMS")
+	field(INPD,"BPM:ACQ:FOFB:D:waveform.VAL PP NMS")
+	field(INPE,"BPM:DSP:kx:get")
+	field(SCAN, "Passive")
+	field(FLNK,"BPM:CALC:FOFB:SUM")
+}
+
+record(aSub,"BPM:CALC:FOFB:SUM"){
+	field(DESC, "Channel SUM FOFB POS acquisition")
+	field(FTA,"LONG")
+	field(NOA,"1000")
+	field(FTB,"LONG")
+	field(NOB,"1000")
+	field(FTC,"LONG")
+	field(NOC,"1000")
+	field(FTD,"LONG")
+	field(NOD,"1000")
+	field(FTE,"LONG")
+	field(NOE,"1")
+
+	field(FTVA,"LONG")
+	field(NOVA,"1000")
+	field(OUTA,"BPM:ACQ:FOFB:SUM:waveform PP NMS")
+
+	field(SNAM,"calcSUM")
+	field(INAM,"initPosCalc")
+
+	field(INPA,"BPM:ACQ:FOFB:A:waveform.VAL PP NMS")
+	field(INPB,"BPM:ACQ:FOFB:B:waveform.VAL PP NMS")
+	field(INPC,"BPM:ACQ:FOFB:C:waveform.VAL PP NMS")
+	field(INPD,"BPM:ACQ:FOFB:D:waveform.VAL PP NMS")
+	field(INPE,"BPM:DSP:ksum:get")
+	field(SCAN, "Passive")
+}
+
+record(waveform,"BPM:ACQ:TBT:X:waveform"){
+	field(INP,"BPM:CALC:TBT:X.VALA")
+	field(DESC, "Channel X TBT POS acquisition")
+	field(SCAN, "Passive")
+	field(NELM,"1000")
+	field(FTVL,"LONG")
+}
+
+record(waveform,"BPM:ACQ:TBT:Y:waveform"){
+	field(INP,"BPM:CALC:TBT:Y.VALA")
+	field(DESC, "Channel Y TBT POS acquisition")
+	field(SCAN, "Passive")
+	field(NELM,"1000")
+	field(FTVL,"LONG")
+}
+
+record(waveform,"BPM:ACQ:TBT:Q:waveform"){
+	field(INP,"BPM:CALC:TBT:Q.VALA")
+	field(DESC, "Channel Q TBT POS acquisition")
+	field(SCAN, "Passive")
+	field(NELM,"1000")
+	field(FTVL,"LONG")
+}
+
+record(waveform,"BPM:ACQ:TBT:SUM:waveform"){
+	field(INP,"BPM:CALC:TBT:SUM.VALA")
+	field(DESC, "Channel SUM TBT POS acquisition")
+	field(SCAN, "Passive")
+	field(NELM,"1000")
+	field(FTVL,"LONG")
+}
+
 record(waveform,"BPM:ACQ:FOFB:X:waveform"){
-	field(DTYP,"BPMwf")
+	field(INP,"BPM:CALC:FOFB:X.VALA")
 	field(DESC, "Channel X FOFB POS acquisition")
 	field(SCAN, "Passive")
-	field(INP,"@asyn($(P),0,0)ACQ_FOFB_POS_CHX_WF")
 	field(NELM,"1000")
-	field(FLNK,BPM:ACQ:FOFB:Y:waveform)
 	field(FTVL,"LONG")
 }
 
 record(waveform,"BPM:ACQ:FOFB:Y:waveform"){
-	field(DTYP,"BPMwf")
+	field(INP,"BPM:CALC:FOFB:Y.VALA")
 	field(DESC, "Channel Y FOFB POS acquisition")
 	field(SCAN, "Passive")
-	field(INP,"@asyn($(P),0,0)ACQ_FOFB_POS_CHY_WF")
 	field(NELM,"1000")
-	field(FLNK,BPM:ACQ:FOFB:Q:waveform)
 	field(FTVL,"LONG")
 }
 
 record(waveform,"BPM:ACQ:FOFB:Q:waveform"){
-	field(DTYP,"BPMwf")
+	field(INP,"BPM:CALC:FOFB:Q.VALA")
 	field(DESC, "Channel Q FOFB POS acquisition")
 	field(SCAN, "Passive")
-	field(INP,"@asyn($(P),0,0)ACQ_FOFB_POS_CHQ_WF")
 	field(NELM,"1000")
-	field(FLNK,BPM:ACQ:FOFB:SUM:waveform)
 	field(FTVL,"LONG")
 }
 
 record(waveform,"BPM:ACQ:FOFB:SUM:waveform"){
-	field(DTYP,"BPMwf")
+	field(INP,"BPM:CALC:FOFB:SUM.VALA")
 	field(DESC, "Channel SUM FOFB POS acquisition")
 	field(SCAN, "Passive")
-	field(INP,"@asyn($(P),0,0)ACQ_FOFB_POS_CHSUM_WF")
 	field(NELM,"1000")
 	field(FTVL,"LONG")
 }
