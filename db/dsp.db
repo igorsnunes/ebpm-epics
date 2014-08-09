@@ -1,68 +1,20 @@
-record(ao,"BPM:DSP:kx:set"){
+record(ao,"BPM:Kx"){
 	field(DTYP,"BPMao")
 	field(DESC,"set kx")
 	field(SCAN,"Passive")
 	field(OUT,"@asyn($(P),0,0)DSP_KX")
-	field(FLNK,"BPM:DSP:kx:get")
 }
-record(ai,"BPM:DSP:kx:get"){
-	field(DTYP,"BPMai")
-	field(DESC,"get kx")
-	field(SCAN,"Passive")
-	field(INP,"@asyn($(P),0,0)DSP_KX")
-}
-record(ao,"BPM:DSP:ky:set"){
+
+record(ao," BPM:Ky"){
 	field(DTYP,"BPMao")
 	field(DESC,"set ky")
 	field(SCAN,"Passive")
-	field(FLNK,"BPM:DSP:ky:get")
 	field(OUT,"@asyn($(P),0,0)DSP_KY")
 }
-record(ai,"BPM:DSP:ky:get"){
-	field(DTYP,"BPMai")
-	field(DESC,"get ky")
-	field(SCAN,"Passive")
-	field(INP,"@asyn($(P),0,0)DSP_KY")
-}
-record(ao,"BPM:DSP:ksum:set"){
+
+record(ao,"BPM:Ksum"){
 	field(DTYP,"BPMao")
 	field(DESC,"set ksum")
 	field(SCAN,"Passive")
-	field(FLNK,"BPM:DSP:ksum:get")
 	field(OUT,"@asyn($(P),0,0)DSP_KSUM")
 }
-record(ai,"BPM:DSP:ksum:get"){
-	field(DTYP,"BPMai")
-	field(DESC,"get ksum")
-	field(SCAN,"Passive")
-	field(INP,"@asyn($(P),0,0)DSP_KSUM")
-}
-
-record(ao,"BPM:DSP:TBT:dsthreshold:set"){
-	field(DTYP,"BPMao")
-	field(FLNK,"BPM:DSP:TBT:dsthreshold:get")
-	field(DESC,"set delta sigma threshold for tbt")
-	field(SCAN,"Passive")
-	field(OUT,"@asyn($(P),0,0)DSP_TBT_DST")
-}
-record(ai,"BPM:DSP:TBT:dsthreshold:get"){
-	field(DTYP,"BPMai")
-	field(DESC,"get delta sigma threshold for tbt")
-	field(SCAN,"Passive")
-	field(INP,"@asyn($(P),0,0)DSP_TBT_DST")
-}
-
-record(ao,"BPM:DSP:FOFB:dsthreshold:set"){
-	field(DTYP,"BPMao")
-	field(FLNK,"BPM:DSP:FOFB:dsthreshold:get")
-	field(DESC,"set delta sigma threshold for FOFB")
-	field(SCAN,"Passive")
-	field(OUT,"@asyn($(P),0,0)DSP_FOFB_DST")
-}
-record(ai,"BPM:DSP:FOFB:dsthreshold:get"){
-	field(DTYP,"BPMai")
-	field(DESC,"get delta sigma threshold for FOFB")
-	field(SCAN,"Passive")
-	field(INP,"@asyn($(P),0,0)DSP_FOFB_DST")
-}
-
