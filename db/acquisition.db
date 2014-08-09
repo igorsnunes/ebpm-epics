@@ -171,7 +171,7 @@ record(aSub,"BPM:TBT:X_calc"){
 	field(INPB,"BPM:TBT:B.VAL PP NMS")
 	field(INPC,"BPM:TBT:C.VAL PP NMS")
 	field(INPD,"BPM:TBT:D.VAL PP NMS")
-	field(INPE,"BPM:Kx")
+	field(INPE,"BPM:Kx.VAL PP NMS")
 	field(SCAN, "Passive")
 	field(FLNK,"BPM:TBT:Y_calc")
 }
@@ -200,7 +200,7 @@ record(aSub,"BPM:TBT:Y_calc"){
 	field(INPB,"BPM:TBT:B.VAL PP NMS")
 	field(INPC,"BPM:TBT:C.VAL PP NMS")
 	field(INPD,"BPM:TBT:D.VAL PP NMS")
-	field(INPE,"BPM:Ky")
+	field(INPE,"BPM:Ky.VAL PP NMS")
 	field(SCAN, "Passive")
 	field(FLNK,"BPM:TBT:Q_calc")
 }
@@ -229,7 +229,7 @@ record(aSub,"BPM:TBT:Q_calc"){
 	field(INPB,"BPM:TBT:B.VAL PP NMS")
 	field(INPC,"BPM:TBT:C.VAL PP NMS")
 	field(INPD,"BPM:TBT:D.VAL PP NMS")
-	field(INPE,"BPM:Kx")
+	field(INPE,"BPM:Kx.VAL PP NMS")
 	field(SCAN, "Passive")
 	field(FLNK,"BPM:TBT:SUM_calc")
 }
@@ -258,7 +258,7 @@ record(aSub,"BPM:TBT:SUM_calc"){
 	field(INPB,"BPM:TBT:B.VAL PP NMS")
 	field(INPC,"BPM:TBT:C.VAL PP NMS")
 	field(INPD,"BPM:TBT:D.VAL PP NMS")
-	field(INPE,"BPM:Ksum")
+	field(INPE,"BPM:Ksum.VAL PP NMS")
 	field(SCAN, "Passive")
 }
 
@@ -327,7 +327,7 @@ record(aSub,"BPM:FOFB:X_calc"){
 	field(INPB,"BPM:FOFB:B.VAL PP NMS")
 	field(INPC,"BPM:FOFB:C.VAL PP NMS")
 	field(INPD,"BPM:FOFB:D.VAL PP NMS")
-	field(INPE,"BPM:Kx")
+	field(INPE,"BPM:Kx.VAL PP NMS")
 	field(SCAN, "Passive")
 	field(FLNK,"BPM:FOFB:Y_calc")
 }
@@ -356,7 +356,7 @@ record(aSub,"BPM:FOFB:Y_calc"){
 	field(INPB,"BPM:FOFB:B.VAL PP NMS")
 	field(INPC,"BPM:FOFB:C.VAL PP NMS")
 	field(INPD,"BPM:FOFB:D.VAL PP NMS")
-	field(INPE,"BPM:Ky")
+	field(INPE,"BPM:Ky.VAL PP NMS")
 	field(SCAN, "Passive")
 	field(FLNK,"BPM:FOFB:Q_calc")
 }
@@ -385,7 +385,7 @@ record(aSub,"BPM:FOFB:Q_calc"){
 	field(INPB,"BPM:FOFB:B.VAL PP NMS")
 	field(INPC,"BPM:FOFB:C.VAL PP NMS")
 	field(INPD,"BPM:FOFB:D.VAL PP NMS")
-	field(INPE,"BPM:Kx")
+	field(INPE,"BPM:Kx.VAL PP NMS")
 	field(SCAN, "Passive")
 	field(FLNK,"BPM:FOFB:SUM_calc")
 }
@@ -414,7 +414,7 @@ record(aSub,"BPM:FOFB:SUM_calc"){
 	field(INPB,"BPM:FOFB:B.VAL PP NMS")
 	field(INPC,"BPM:FOFB:C.VAL PP NMS")
 	field(INPD,"BPM:FOFB:D.VAL PP NMS")
-	field(INPE,"BPM:Ksum")
+	field(INPE,"BPM:Ksum.VAL PP NMS")
 	field(SCAN, "Passive")
 }
 

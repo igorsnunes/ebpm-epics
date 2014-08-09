@@ -5,7 +5,7 @@ record(ao,"BPM:Kx"){
 	field(OUT,"@asyn($(P),0,0)DSP_KX")
 }
 
-record(ao," BPM:Ky"){
+record(ao,"BPM:Ky"){
 	field(DTYP,"BPMao")
 	field(DESC,"set ky")
 	field(SCAN,"Passive")
